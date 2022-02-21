@@ -65,13 +65,18 @@
                 Background="{DynamicResource ControlFillColorDefaultBrush}"
                 CornerRadius="8,0,0,0">
                 <Grid>
-                    <Frame x:Name="RootFrame" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
                     <wpfui:Breadcrumb
-                        Margin="18,18,0,0"
+                        Grid.Row="0"
+                        Margin="24,24,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         FontSize="24"
                         Navigation="{Binding ElementName=RootNavigation}" />
+                    <Frame x:Name="RootFrame" Grid.Row="1" />
                 </Grid>
             </Border>
         </Grid>
