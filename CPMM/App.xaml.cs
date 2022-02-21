@@ -18,6 +18,8 @@ namespace CPMM
     {
         private bool _disposed = false;
 
+        internal readonly Code.Middleware Middleware = new();
+
         App()
         {
             DropIfAlreadyRunning();
@@ -36,13 +38,12 @@ namespace CPMM
 #if DEBUG
             System.Diagnostics.Debug.WriteLine($"INFO | {typeof(App)} disposed, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}", "CPMM");
 #endif
-
-            // Dispose resources
+            Middleware.Dispose();
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
-            // Initialize resources
+            await Middleware.InitializeAsync();
 
             base.OnStartup(e);
         }

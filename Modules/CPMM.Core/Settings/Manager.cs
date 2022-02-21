@@ -8,5 +8,15 @@ namespace CPMM.Core.Settings
     public class Manager
     {
         public Options Options { get; internal set; }
+
+        public async Task<bool> SaveAsync()
+        {
+            return true;
+        }
+
+        public async Task<bool> ReadAsync()
+        {
+            return true;
+        }
     }
 }
