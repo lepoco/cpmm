@@ -7,15 +7,17 @@ namespace CPMM.Core.Settings
 {
     public class Manager
     {
-        public Options Options { get; internal set; }
+        public Options Options { get; internal set; } = new();
 
         public async Task<bool> SaveAsync()
         {
+            // save to app data
             return true;
         }
 
         public async Task<bool> ReadAsync()
         {
+            // Options = read from appdata
             return true;
         }
     }

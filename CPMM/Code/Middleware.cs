@@ -4,6 +4,7 @@
 // All Rights Reserved.
 
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace CPMM.Code
@@ -23,6 +24,8 @@ namespace CPMM.Code
         {
             await Settings.ReadAsync();
 
+            SetLanguage(Settings.Options.Language);
+
             return true;
         }
 
@@ -32,10 +35,30 @@ namespace CPMM.Code
             _disposed = true;
 
 #if DEBUG
-            System.Diagnostics.Debug.WriteLine($"INFO | {typeof(Middleware)} disposed, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}", "CPMM");
+            System.Diagnostics.Debug.WriteLine(
+                $"INFO | {typeof(Middleware)} disposed, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}",
+                "CPMM");
 #endif
-
+            // Lepo.i18n.Translator.Flush();
             // Dispose middleware resources.
+        }
+
+        public void SetLanguage(string language)
+        {
+            language = language.Trim();
+
+            // Validate
+            switch (language)
+            {
+                default:
+                    Lepo.i18n.Translator.SetLanguage(
+                        Assembly.GetExecutingAssembly(),
+                        "en_US",
+                        "CPMM.Assets.Strings.en_US.yml",
+                        false
+                    );
+                    break;
+            }
         }
     }
 }

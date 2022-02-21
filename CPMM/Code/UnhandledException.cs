@@ -16,8 +16,7 @@ namespace CPMM.Code
         {
             if (args.ExceptionObject is not Exception exception) return;
 
-            var logPath = WriteToLog(exception);
-            DisplayBox(exception, logPath);
+            DisplayBox(exception, WriteToLog(exception));
         }
 
         protected static string WriteToLog(Exception exception)
