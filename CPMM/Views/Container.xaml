@@ -53,6 +53,11 @@
                 </wpfui:NavigationStore.Items>
                 <wpfui:NavigationStore.Footer>
                     <wpfui:NavigationItem
+                        Content="{i18n:Translate String='container.nav.about'}"
+                        Icon="Chat24"
+                        Tag="about"
+                        Type="{x:Type pages:About}" />
+                    <wpfui:NavigationItem
                         Content="{i18n:Translate String='container.nav.settings'}"
                         Icon="Settings24"
                         Tag="settings"
