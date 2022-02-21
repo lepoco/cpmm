@@ -3,18 +3,16 @@
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
-using System.Windows.Controls;
-
-namespace CPMM.Views.Pages
+namespace CPMM.Core.Settings
 {
-    /// <summary>
-    /// Interaction logic for Dashboard.xaml
-    /// </summary>
-    public partial class Dashboard : Page
+    public class Options
     {
-        public Dashboard()
+        [NonSerialized]
+        private string _language = "en_US";
+        public string Language
         {
-            InitializeComponent();
+            get => _language;
+            set => _language = value;
         }
     }
 }

@@ -3,18 +3,10 @@
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
-using System.Windows.Controls;
-
-namespace CPMM.Views.Pages
+namespace CPMM.Core.Settings
 {
-    /// <summary>
-    /// Interaction logic for Dashboard.xaml
-    /// </summary>
-    public partial class Dashboard : Page
+    public class Manager
     {
-        public Dashboard()
-        {
-            InitializeComponent();
-        }
+        public Options Options { get; internal set; }
     }
 }

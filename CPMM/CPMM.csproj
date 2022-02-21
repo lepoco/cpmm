@@ -6,11 +6,16 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <ApplicationIcon>cpmm.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Assets\Strings\en_US.yml" />
     <None Remove="Assets\Strings\pl_PL.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="cpmm.ico" />
   </ItemGroup>
 
   <ItemGroup>
