@@ -2,6 +2,7 @@
     x:Class="CPMM.Views.Container"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="clr-namespace:WPFUI.Common;assembly=WPFUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i18n="clr-namespace:Lepo.i18n;assembly=Lepo.i18n"
     xmlns:local="clr-namespace:CPMM.Views"
@@ -68,6 +69,25 @@
         <wpfui:TitleBar
             Title="Arasaka Chip Manager"
             Grid.Row="0"
-            Icon="pack://application:,,,/CPMM;component/Assets/Images/arasaka-logo.png" />
+            Icon="pack://application:,,,/CPMM;component/Assets/Images/arasaka-logo.png"
+            NotifyIconImage="pack://application:,,,/CPMM;component/cpmm.ico"
+            NotifyIconTooltip="Arasaka"
+            UseNotifyIcon="True">
+            <wpfui:TitleBar.NotifyIconMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Click="MenuItem_OnClick"
+                        Header="{i18n:Translate String='container.nav.dashboard'}"
+                        Icon="{x:Static common:Icon.Home24}"
+                        Tag="dashboard" />
+                    <Separator />
+                    <MenuItem
+                        Click="MenuItem_OnClick"
+                        Header="{i18n:Translate String='container.nav.settings'}"
+                        Icon="{x:Static common:Icon.Settings24}"
+                        Tag="settings" />
+                </ContextMenu>
+            </wpfui:TitleBar.NotifyIconMenu>
+        </wpfui:TitleBar>
     </Grid>
 </Window>

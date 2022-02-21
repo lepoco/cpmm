@@ -23,5 +23,10 @@ namespace CPMM.Views
         {
             RootNavigation.Navigate("dashboard");
         }
+
+        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            // TRAY
+        }
     }
 }
