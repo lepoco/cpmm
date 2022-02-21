@@ -1,0 +1,16 @@
+﻿<Window
+    x:Class="CPMM.Views.Container"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:CPMM.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
+    Title="Cyberpunk 2077 Mod Manager"
+    Style="{StaticResource UiWindow}"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid>
+        <wpfui:TitleBar ApplicationNavigation="True" />
+    </Grid>
+</Window>

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Strings\en_US.yml" />
+    <None Remove="Assets\Strings\pl_PL.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Strings\en_US.yml" />
+    <EmbeddedResource Include="Assets\Strings\pl_PL.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Lepo.i18n" Version="1.2.1" />
+    <PackageReference Include="WPF-UI" Version="1.2.2-prerelease147" />
+  </ItemGroup>
+
+</Project>
