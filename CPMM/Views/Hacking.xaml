@@ -1,0 +1,83 @@
+﻿<Window
+    x:Class="CPMM.Views.Hacking"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:CPMM.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Breach protocol"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Grid>
+        <Border x:Name="RootBorder" Background="#212121">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <ScrollViewer
+                    Name="ConsoleScrollViewer"
+                    HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Hidden">
+                    <TextBlock
+                        x:Name="ConsoleTextBlock"
+                        Margin="8"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        FontFamily="pack://application:,,,/Assets/Fonts/#Fira Code"
+                        Foreground="White"
+                        TextWrapping="Wrap" />
+                </ScrollViewer>
+            </Grid>
+        </Border>
+        <Grid
+            x:Name="BlueScreenOfDeath"
+            Background="#0078d7"
+            Visibility="Hidden">
+            <StackPanel
+                Margin="100"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center">
+                <TextBlock
+                    FontSize="100"
+                    Foreground="White"
+                    Text=":(" />
+                <TextBlock
+                    FontSize="30"
+                    FontWeight="Light"
+                    Foreground="White"
+                    Text="Your PC ran into a problem and needs to restart. We're&#x0a;just collecting some error info and then we'll restart for&#x0a;you." />
+
+                <TextBlock
+                    Margin="0,20,0,0"
+                    FontSize="30"
+                    FontWeight="Light"
+                    Foreground="White"
+                    Text="20% complete" />
+                <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                    <Image
+                        Width="100"
+                        Height="100"
+                        HorizontalAlignment="Left"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Source="pack://application:,,,/Assets/Images/nightcity.png" />
+                    <StackPanel Margin="12,0,0,0">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="White"
+                            Text="For more information about this issue and possible fixes visit https://www.cdprojekt.com/" />
+                        <TextBlock
+                            Margin="0,20,0,0"
+                            FontSize="12"
+                            Foreground="White"
+                            Text="If you call a support person, give them this info:" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="White"
+                            Text="3WIEDZMIN3NAJLEPSZY" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

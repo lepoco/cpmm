@@ -21,6 +21,7 @@ namespace CPMM.Views
 
         private void RootNavigation_OnLoaded(object sender, RoutedEventArgs e)
         {
+            RootNavigation.Navigate("dashboard");
         }
     }
 }

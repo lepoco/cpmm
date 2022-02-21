@@ -10,6 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Fonts\FiraCode-Regular.ttf" />
+    <None Remove="Assets\Images\arasaka-logo.png" />
+    <None Remove="Assets\Images\arasaka-red.png" />
+    <None Remove="Assets\Images\arasaka-white-small.png" />
+    <None Remove="Assets\Images\cdprojekt-small.png" />
+    <None Remove="Assets\Images\cdprojekt.png" />
+    <None Remove="Assets\Images\nexusmods.png" />
+    <None Remove="Assets\Images\nightcity.png" />
     <None Remove="Assets\Strings\en_US.yml" />
     <None Remove="Assets\Strings\pl_PL.yml" />
   </ItemGroup>
@@ -30,6 +38,35 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Modules\CPMM.Core\CPMM.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Fonts\FiraCode-Regular.ttf" />
+    <Resource Include="Assets\Images\arasaka-logo.png" />
+    <Resource Include="Assets\Images\arasaka-red.png" />
+    <Resource Include="Assets\Images\arasaka-white-small.png" />
+    <Resource Include="Assets\Images\cdprojekt-small.png" />
+    <Resource Include="Assets\Images\cdprojekt.png" />
+    <Resource Include="Assets\Images\nexusmods.png" />
+    <Resource Include="Assets\Images\nightcity.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="License - 7-Zip.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="License - FiraCode.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="License - LZMA.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="License - SevenZipSharp GPL.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="License - SevenZipSharp LGPL.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

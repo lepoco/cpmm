@@ -65,6 +65,9 @@
             </Border>
         </Grid>
 
-        <wpfui:TitleBar Title="Arasaka Chip Manager" Grid.Row="0" />
+        <wpfui:TitleBar
+            Title="Arasaka Chip Manager"
+            Grid.Row="0"
+            Icon="pack://application:,,,/CPMM;component/Assets/Images/arasaka-logo.png" />
     </Grid>
 </Window>
