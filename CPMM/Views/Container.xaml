@@ -40,6 +40,16 @@
                         Icon="Home24"
                         Tag="dashboard"
                         Type="{x:Type pages:Dashboard}" />
+                    <wpfui:NavigationItem
+                        Content="{i18n:Translate String='container.nav.list'}"
+                        Icon="Library24"
+                        Tag="list"
+                        Type="{x:Type pages:List}" />
+                    <wpfui:NavigationItem
+                        Content="{i18n:Translate String='container.nav.install'}"
+                        Icon="Add24"
+                        Tag="install"
+                        Type="{x:Type pages:Install}" />
                 </wpfui:NavigationStore.Items>
                 <wpfui:NavigationStore.Footer>
                     <wpfui:NavigationItem
@@ -67,11 +77,11 @@
         </Grid>
 
         <wpfui:TitleBar
-            Title="Arasaka Chip Manager"
+            Title="Arasaka μChip Manager"
             Grid.Row="0"
             Icon="pack://application:,,,/CPMM;component/Assets/Images/arasaka-logo.png"
             NotifyIconImage="pack://application:,,,/CPMM;component/cpmm.ico"
-            NotifyIconTooltip="Arasaka"
+            NotifyIconTooltip="Arasaka μChips"
             UseNotifyIcon="True">
             <wpfui:TitleBar.NotifyIconMenu>
                 <ContextMenu>

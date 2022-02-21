@@ -8,11 +8,11 @@ using System.Windows.Controls;
 namespace CPMM.Views.Pages
 {
     /// <summary>
-    /// Interaction logic for Settings.xaml
+    /// Interaction logic for List.xaml
     /// </summary>
-    public partial class Settings : Page
+    public partial class List : Page
     {
-        public Settings()
+        public List()
         {
             InitializeComponent();
         }
