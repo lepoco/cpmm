@@ -18,5 +18,9 @@ namespace CPMM.Views
 
             InitializeComponent();
         }
+
+        private void RootNavigation_OnLoaded(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }
