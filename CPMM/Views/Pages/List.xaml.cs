@@ -3,18 +3,39 @@
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
-using System.Windows.Controls;
+using CPMM.Code;
+using System.Threading.Tasks;
+using WPFUI.Controls.Interfaces;
 
 namespace CPMM.Views.Pages
 {
     /// <summary>
     /// Interaction logic for List.xaml
     /// </summary>
-    public partial class List : Page
+    public partial class List : INavigable
     {
         public List()
         {
             InitializeComponent();
+        }
+
+        public void OnNavigationRequest(INavigation sender, object current)
+        {
+#if DEBUG
+            System.Diagnostics.Debug.WriteLine(
+                $"INFO | {typeof(List)} navigated, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}",
+                "CPMM");
+#endif
+            // If list null
+            Task.Run(async () =>
+            {
+                await Task.Delay(50);
+
+                GH.Dispatch(() =>
+                {
+                    GH.Navigate("install");
+                });
+            });
         }
     }
 }
