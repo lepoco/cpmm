@@ -23,6 +23,8 @@ namespace CPMM
         App()
         {
             DropIfAlreadyRunning();
+
+            AppDomain.CurrentDomain!.UnhandledException += Code.UnhandledException.OnUnhandledException;
         }
 
         ~App()
