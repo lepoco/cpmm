@@ -13,7 +13,7 @@ namespace CPMM.Views.Pages
 {
     internal class InstallData : ViewData
     {
-        private string _modificationPath = Translator.String("global.unknown");
+        private string _modificationPath = Translator.String("global.fileNotSelected");
 
         public string ModificationPath
         {
@@ -60,7 +60,7 @@ namespace CPMM.Views.Pages
 
             return new OpenFileDialog()
             {
-                Title = Translator.String("global.dialog.selectMods"),
+                Title = Translator.String("global.dialog.selectMod"),
                 Filter = dialogFilter,
                 CheckPathExists = true,
                 Multiselect = InstallDataStack.DialogMultiSelect
@@ -75,6 +75,8 @@ namespace CPMM.Views.Pages
 #if DEBUG
             System.Diagnostics.Debug.WriteLine($"INFO | {DialogSelector.FileName} selected, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}", "CPMM");
 #endif
+
+            InstallDataStack.ModificationPath = DialogSelector.FileName;
 
             // File_modSelector.FileNames
         }

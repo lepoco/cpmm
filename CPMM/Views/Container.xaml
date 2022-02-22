@@ -22,7 +22,11 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" Margin="0">
+        <Grid
+            x:Name="RootGrid"
+            Grid.Row="1"
+            Margin="0"
+            Visibility="{Binding RootGridVisibility, Mode=OneWay}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -85,6 +89,50 @@
                 </Grid>
             </Border>
         </Grid>
+
+        <!-- MEH
+        <Grid
+            x:Name="LoadingGrid"
+            Grid.Row="1"
+            Margin="0"
+            Visibility="{Binding LoadingVisibility, Mode=OneWay}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image
+                    MaxWidth="60"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Source="pack://application:,,,/Assets/Images/relic_logo.png">
+                    <Image.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        AutoReverse="True"
+                                        RepeatBehavior="Forever"
+                                        Storyboard.TargetProperty="(UIElement.Opacity)"
+                                        From="1.0"
+                                        To="0.4"
+                                        Duration="0:0:1">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CubicEase EasingMode="EaseInOut" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Image.Triggers>
+                </Image>
+                <TextBlock
+                    MaxWidth="140"
+                    Margin="0,24,0,0"
+                    FontSize="12"
+                    FontWeight="Bold"
+                    Opacity="0.8"
+                    Text="{Binding LoadingText, Mode=OneWay}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </Grid>
+        -->
 
         <wpfui:TitleBar
             Title="Arasaka μChip Manager"

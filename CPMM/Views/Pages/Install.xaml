@@ -20,7 +20,7 @@
         <wpfui:CardControl
             Title="{i18n:Translate String='install.card.select.title'}"
             Grid.Row="1"
-            Icon="Folder24"
+            Icon="Archive24"
             Subtitle="{Binding ModificationPath, Mode=OneWay}">
             <wpfui:Button
                 Appearance="Secondary"

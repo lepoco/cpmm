@@ -1,5 +1,18 @@
-﻿container.nav.dashboard: Home
+﻿# Global things
+global.fileNotSelected: File not selected.
+global.dialog.allFiles: All files
+global.dialog.selectMod: Select Cyberpunk 2077 modification
+global.dialog.selectMod.plural: Select Cyberpunk 2077 modifications
+global.dialog.cyberMods: Cyberpunk 2077 Mods
+
+# Container / Tray menu
+container.nav.dashboard: Home
 container.nav.list: Mods
 container.nav.install: Add new
 container.nav.about: About
 container.nav.settings: Settings
+container.loading.default: Connecting with Arasaka Cloud.
+
+# Installator
+install.select: Select archive
+install.card.select.title: Archive with modification files

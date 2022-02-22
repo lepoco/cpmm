@@ -18,11 +18,15 @@
     <None Remove="Assets\Images\cdprojekt.png" />
     <None Remove="Assets\Images\nexusmods.png" />
     <None Remove="Assets\Images\nightcity.png" />
+    <None Remove="Assets\Images\relic.png" />
+    <None Remove="Assets\Images\relic_logo.png" />
     <None Remove="Assets\Strings\en_US.yml" />
     <None Remove="Assets\Strings\pl_PL.yml" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Images\relic.png" />
+    <Resource Include="Assets\Images\relic_logo.png" />
     <Resource Include="cpmm.ico" />
   </ItemGroup>
 

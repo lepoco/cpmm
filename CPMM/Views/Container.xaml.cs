@@ -4,54 +4,56 @@
 // All Rights Reserved.
 
 using CPMM.Code;
-using System.Threading.Tasks;
+using Lepo.i18n;
 using System.Windows;
 
 namespace CPMM.Views
 {
+    internal class ContainerData : ViewData
+    {
+        private string _loadingText = Translator.String("container.loading.default");
+        public string LoadingText
+        {
+            get => _loadingText;
+            set => UpdateProperty(ref _loadingText, value, nameof(LoadingText));
+        }
+
+        private Visibility _loadingVisibility = Visibility.Collapsed;
+        public Visibility LoadingVisibility
+        {
+            get => _loadingVisibility;
+            set => UpdateProperty(ref _loadingVisibility, value, nameof(LoadingVisibility));
+        }
+
+        private Visibility _rootGridVisibility = Visibility.Visible;
+        public Visibility RootGridVisibility
+        {
+            get => _rootGridVisibility;
+            set => UpdateProperty(ref _rootGridVisibility, value, nameof(RootGridVisibility));
+        }
+    }
     /// <summary>
     /// Interaction logic for Container.xaml
     /// </summary>
     public partial class Container : Window
     {
+        internal ContainerData ContainerDataStack { get; } = new();
+
         public Container()
         {
             WPFUI.Background.Manager.Apply(this);
 
             InitializeComponent();
 
-            // Debug hacking window
-            // Show on first run, OR skip if shift key pressed
-            //Hide();
+            if (!GH.Settings.Options.Initialized)
+                Initializer.Run();
 
-            //new Hacking
-            //{
-            //    Config = new Hacking.Configuration
-            //    {
-            //        LockUserControl = true,
-            //        ShowFullIntro = true,
-            //        TopMost = true
-            //    },
-            //    WindowStartupLocation = WindowStartupLocation.CenterScreen,
-            //    OnFinished = OnHackingFinished
-            //}.Show();
+            InitializeData();
         }
 
-        private async Task OnHackingFinished(object sender)
+        private void InitializeData()
         {
-#if DEBUG
-            System.Diagnostics.Debug.WriteLine($"INFO | {typeof(Hacking)} finished, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}", "CPMM");
-#endif
-            await GH.DispatchAsync(() =>
-            {
-                Show();
-                Activate();
-                Topmost = true;
-                Topmost = false;
-
-                Focus();
-
-            });
+            DataContext = ContainerDataStack;
         }
 
         private void RootNavigation_OnLoaded(object sender, RoutedEventArgs e)

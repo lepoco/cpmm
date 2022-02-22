@@ -3,6 +3,8 @@
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
+using System.IO;
+
 namespace CPMM.Core.Game
 {
     /// <summary>
@@ -34,6 +36,29 @@ namespace CPMM.Core.Game
         public static async Task<IGame> FetchAsync()
         {
             throw new NotImplementedException();
+        }
+
+        public static string TryToLocate()
+        {
+            if (Directory.Exists(Locations.GogDefault))
+                return Locations.GogDefault;
+
+            if (Directory.Exists(Locations.GogAlternative))
+                return Locations.GogAlternative;
+
+            if (Directory.Exists(Locations.SteamDefault))
+                return Locations.SteamDefault;
+
+            if (Directory.Exists(Locations.SteamAlternative))
+                return Locations.SteamAlternative;
+
+            if (Directory.Exists(Locations.UserPrimary))
+                return Locations.UserPrimary;
+
+            if (Directory.Exists(Locations.UserSecondary))
+                return Locations.UserSecondary;
+
+            return String.Empty;
         }
     }
 }
