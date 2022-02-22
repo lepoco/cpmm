@@ -6,6 +6,7 @@
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CPMM.Code
 {
@@ -14,6 +15,8 @@ namespace CPMM.Code
         private bool _disposed = false;
 
         public readonly Core.Settings.Manager Settings = new();
+
+        public readonly Core.Input.Shortcuts Shortcuts = new();
 
         ~Middleware()
         {
@@ -25,6 +28,8 @@ namespace CPMM.Code
             await Settings.ReadAsync();
 
             SetLanguage(Settings.Options.Language);
+
+            Shortcuts.Initialize(Application.Current.MainWindow!);
 
             return true;
         }

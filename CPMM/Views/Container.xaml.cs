@@ -20,8 +20,6 @@ namespace CPMM.Views
 
             InitializeComponent();
 
-
-
             // Debug hacking window
             // Show on first run, OR skip if shift key pressed
             Hide();
@@ -47,6 +45,12 @@ namespace CPMM.Views
             await GH.DispatchAsync(() =>
             {
                 Show();
+                Activate();
+                Topmost = true;
+                Topmost = false;
+
+                Focus();
+
             });
         }
 

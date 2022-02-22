@@ -376,10 +376,7 @@ namespace CPMM.Views
 
         private async Task<bool> ShowBlueScreenOfDeath()
         {
-            return await Dispatch(() =>
-            {
-                BlueScreenOfDeath.Visibility = Visibility.Visible;
-            });
+            return await Dispatch(() => { BlueScreenOfDeath.Visibility = Visibility.Visible; });
         }
 
         private async Task<bool> HackingMessagesLoop()
@@ -393,17 +390,22 @@ namespace CPMM.Views
             await Write("\n\nPermitted locations:", false);
             await Write("\nSapporo, Osaka, Kyoto, Fukuoka, Hong Kong, Taipei, Shanghai, Honolulu, Nairobi", false);
 
-            await Write("\n\nWARNING: CONFIDENTIALITY NOTICE - The information enclosed with this application are the private, confidential property of the sender, and the material is privileged communication intended solely for the individual indicated. If you are not the intended recipient, you are notified that any review, disclosure, copying, distribution, or the taking of any other action relevant to the contents of this transmission are strictly prohibited. If you have received this transmission in error, please notify us immediately at arasaka@nightcity.love", false);
+            await Write(
+                "\n\nWARNING: CONFIDENTIALITY NOTICE - The information enclosed with this application are the private, confidential property of the sender, and the material is privileged communication intended solely for the individual indicated. If you are not the intended recipient, you are notified that any review, disclosure, copying, distribution, or the taking of any other action relevant to the contents of this transmission are strictly prohibited. If you have received this transmission in error, please notify us immediately at arasaka@nightcity.love",
+                false);
             await Task.Delay(400);
 
             for (int i = 2; i < 5; i++)
             {
-                await Write("\n\n[  ] Connecting to the Arasaka INC cloud, path - netdir://RSA8192.ftps.gate.arasaka.inc/node-" + i + " ");
+                await Write(
+                    "\n\n[  ] Connecting to the Arasaka INC cloud, path - netdir://RSA8192.ftps.gate.arasaka.inc/node-" +
+                    i + " ");
                 await DrawSpinner();
                 await Write("\n[OK] Done.");
             }
 
-            await Write("\n\n[  ] Connecting to the Arasaka INC cloud, path - netdir://RSA8192.ftps.gate.arasaka.inc/node-5 ");
+            await Write(
+                "\n\n[  ] Connecting to the Arasaka INC cloud, path - netdir://RSA8192.ftps.gate.arasaka.inc/node-5 ");
             await DrawSpinner(10);
             await Write("\n[!!] ERROR!");
             await Write("\nConnection to the gateway could not be established");
@@ -413,35 +415,23 @@ namespace CPMM.Views
             await Write("\n" + GenerateRandomString(15));
             await Write("\n RO   R");
 
-            await Dispatch(() =>
-            {
-                WindowStyle = WindowStyle.None;
-            });
+            await Dispatch(() => { WindowStyle = WindowStyle.None; });
 
             await Write("\n" + GenerateRandomString(40));
             await Write("\n" + GenerateRandomString(120));
             await Write("\n" + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
 
-            await Dispatch(() =>
-            {
-                WindowStyle = WindowStyle.ThreeDBorderWindow;
-            });
+            await Dispatch(() => { WindowStyle = WindowStyle.ThreeDBorderWindow; });
 
             await Write("\n" + GenerateRandomString(75));
             await Write("\n" + GenerateRandomString(120));
 
-            await Dispatch(() =>
-            {
-                WindowStyle = WindowStyle.None;
-            });
+            await Dispatch(() => { WindowStyle = WindowStyle.None; });
 
             await Write("\n" + GenerateRandomString(120));
             await Write("\n" + GenerateRandomString(120));
 
-            await Dispatch(() =>
-            {
-                WindowStyle = WindowStyle.SingleBorderWindow;
-            });
+            await Dispatch(() => { WindowStyle = WindowStyle.SingleBorderWindow; });
 
             await ShowErrorWindows();
             await Task.Delay(300);
@@ -478,7 +468,8 @@ namespace CPMM.Views
             await Write("\n" + GenerateRandomString(212));
             await Write("\n\n" + GenerateRandomString(10) + "lubieplacki" + GenerateRandomString(10), false);
             await Write("\nWIN KERNEL VIOLATED, SEGMENTATION FAULT");
-            await Write("fatal error: in \"kernel / basic_communication\": memory access violation at address: 0x00000024");
+            await Write(
+                "fatal error: in \"kernel / basic_communication\": memory access violation at address: 0x00000024");
             await Write("\n W14D0M0 KT0, W14D0M0 C0, W14D0M0 K0G0", false);
             await Write("\n'Arasaka Manager.exe' (CoreCLR: clrhost): Loaded");
 
@@ -494,7 +485,8 @@ namespace CPMM.Views
 
             await Task.Delay(100);
 
-            await Write("\nWarning engine/environment.ws(30): Global native function 'EnableDebugOverlayFilter' was not exported from C++ code.");
+            await Write(
+                "\nWarning engine/environment.ws(30): Global native function 'EnableDebugOverlayFilter' was not exported from C++ code.");
             await Write("\nGlobal native function 'DebugSetEShowFlag' was not exported from C++ code.");
             await Write("\nMEMORY VIOLATED, SEGMENTATION FAULT");
             await Write("\n" + GenerateRandomString(200));
@@ -600,7 +592,8 @@ namespace CPMM.Views
             await DrawSpinner(10);
             await Write("\n[OK] Done.");
 
-            await Write("\n\n[  ] Wipe: " + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\.ssh ");
+            await Write(
+                "\n\n[  ] Wipe: " + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\.ssh ");
             await DrawSpinner(10);
             await Write("\n[OK] Done.");
 
@@ -642,7 +635,8 @@ namespace CPMM.Views
             await Write("\n" + GenerateRandomString(120), true, 100);
             await Write("\n" + GenerateRandomString(120), true, 100);
 
-            await Write("\nfatal error: in \"kernel / restricted_area\": memory access violation at address: 0x00000029");
+            await Write(
+                "\nfatal error: in \"kernel / restricted_area\": memory access violation at address: 0x00000029");
 
             await Write("\n.");
             await Write("\n.");
