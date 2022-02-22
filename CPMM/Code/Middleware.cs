@@ -5,17 +5,25 @@
 
 using System;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace CPMM.Code
 {
+    /// <summary>
+    /// A class to separate additional functions from <see cref="Application"/>.
+    /// </summary>
     internal class Middleware : IDisposable
     {
         private bool _disposed = false;
 
+        /// <summary>
+        /// Application settings.
+        /// </summary>
         public readonly Core.Settings.Manager Settings = new();
 
+        /// <summary>
+        /// Custom shortcuts.
+        /// </summary>
         public readonly Core.Input.Shortcuts Shortcuts = new();
 
         ~Middleware()
@@ -23,9 +31,9 @@ namespace CPMM.Code
             Dispose();
         }
 
-        public async Task<bool> InitializeAsync()
+        public bool Initialize()
         {
-            await Settings.ReadAsync();
+            Settings.ReadAsync();
 
             SetLanguage(Settings.Options.Language);
 

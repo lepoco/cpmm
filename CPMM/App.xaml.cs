@@ -43,9 +43,9 @@ namespace CPMM
             Middleware.Dispose();
         }
 
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
-            await Middleware.InitializeAsync();
+            Middleware.Initialize();
 
             base.OnStartup(e);
         }

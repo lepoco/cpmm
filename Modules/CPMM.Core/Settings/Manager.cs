@@ -7,9 +7,15 @@ using System.IO;
 
 namespace CPMM.Core.Settings
 {
+    /// <summary>
+    /// Stores application settings and allows to save and read them.
+    /// </summary>
     public class Manager
     {
-        private string _directory;
+        /// <summary>
+        /// Main settings directory.
+        /// </summary>
+        private readonly string _directory;
 
         /// <summary>
         /// All application options.
@@ -17,7 +23,7 @@ namespace CPMM.Core.Settings
         public Options Options { get; internal set; } = new();
 
         /// <summary>
-        /// Path to the application options folder.
+        /// Path to the application settings file.
         /// </summary>
         public string Path { get; }
 
