@@ -17,6 +17,11 @@ namespace CPMM.Views
             WPFUI.Background.Manager.Apply(this);
 
             InitializeComponent();
+
+#if DEBUG
+            // Debug hacking window
+            new Hacking().Show();
+#endif
         }
 
         private void RootNavigation_OnLoaded(object sender, RoutedEventArgs e)

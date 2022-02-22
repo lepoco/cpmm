@@ -10,12 +10,12 @@ namespace CPMM.Core.Installer
     /// <summary>
     /// Represents the result of the unpacking operation.
     /// </summary>
-    internal struct UnpackingResult
+    internal struct ExtractingResult
     {
         /// <summary>
         /// Represents the status of the unpacking operation.
         /// </summary>
-        public enum UnpackingStatus
+        public enum ExtractingStatus
         {
             Unknown,
             Success,
@@ -24,7 +24,7 @@ namespace CPMM.Core.Installer
             PasswordProtected
         }
 
-        public UnpackingStatus Status = UnpackingStatus.Unknown;
+        public ExtractingStatus Status = ExtractingStatus.Unknown;
 
         public string InPath = String.Empty;
 
@@ -36,7 +36,7 @@ namespace CPMM.Core.Installer
     /// </summary>
     internal static class Archive
     {
-        public static UnpackingResult Unpack(string input, string output)
+        public static async Task<ExtractingResult> ExtractAsync(string input, string output)
         {
             using var extractor = new SevenZipExtractor(input);
 
@@ -45,11 +45,11 @@ namespace CPMM.Core.Installer
 #if DEBUG
                 System.Diagnostics.Debug.WriteLine($"WARNING | {input} is password protected (or another error has occurred)., Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}", "CPMM.Core");
 #endif
-                return new UnpackingResult
+                return new ExtractingResult
                 {
                     InPath = input,
                     OutPath = output,
-                    Status = UnpackingResult.UnpackingStatus.PasswordProtected
+                    Status = ExtractingResult.ExtractingStatus.PasswordProtected
                 };
             }
 
@@ -63,21 +63,21 @@ namespace CPMM.Core.Installer
 #if DEBUG
                 System.Diagnostics.Debug.WriteLine($"WARNING | {input} archive is unsupported., Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}", "CPMM.Core");
 #endif
-                return new UnpackingResult
+                return new ExtractingResult
                 {
                     InPath = input,
                     OutPath = output,
-                    Status = UnpackingResult.UnpackingStatus.Unsupported
+                    Status = ExtractingResult.ExtractingStatus.Unsupported
                 };
             }
 
-            extractor.ExtractArchive(output);
+            await extractor.ExtractArchiveAsync(output);
 
-            return new UnpackingResult
+            return new ExtractingResult
             {
                 InPath = input,
                 OutPath = output,
-                Status = UnpackingResult.UnpackingStatus.Success
+                Status = ExtractingResult.ExtractingStatus.Success
             };
         }
     }

@@ -3,12 +3,9 @@
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
-namespace CPMM.Core.Mods
+namespace CPMM.Core.Input
 {
-    public interface IMod
+    internal class Shortcuts
     {
-        public Core.Mods.Location Location { get; }
-
-        public Core.Mods.Category Category { get; }
     }
 }

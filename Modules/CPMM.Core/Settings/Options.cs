@@ -5,6 +5,10 @@
 
 namespace CPMM.Core.Settings
 {
+    /// <summary>
+    /// Provides a representation of all application options.
+    /// </summary>
+    [Serializable]
     public class Options
     {
         [NonSerialized]

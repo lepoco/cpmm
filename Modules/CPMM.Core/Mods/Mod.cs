@@ -7,5 +7,8 @@ namespace CPMM.Core.Mods
 {
     public class Mod : IMod
     {
+        public Core.Mods.Location Location { get; internal set; } = Core.Mods.Location.Unknown;
+
+        public Core.Mods.Category Category { get; internal set; } = Core.Mods.Category.Unknown;
     }
 }
