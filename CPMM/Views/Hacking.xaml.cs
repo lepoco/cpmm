@@ -19,9 +19,7 @@ namespace CPMM.Views
     /// <summary>
     /// Event send from <see cref="Hacking"/>.
     /// </summary>
-    public delegate Task<bool> HackingEvent(object sender);
-
-
+    public delegate Task HackingEvent(object sender);
 
     /// <summary>
     /// Interaction logic for Hacking.xaml
@@ -147,11 +145,11 @@ namespace CPMM.Views
             return true;
         }
 
-        private async Task<bool> DrawBlinker(int lenght = 10)
+        private async Task<bool> DrawBlinker(int length = 10)
         {
             _currentMessage += " ";
 
-            for (int i = 0; i < lenght; i++)
+            for (int i = 0; i < length; i++)
             {
                 await Task.Delay(300);
 
@@ -479,6 +477,8 @@ namespace CPMM.Views
             await Write("\n" + GenerateRandomString(200));
             await Write("\n" + GenerateRandomString(212));
             await Write("\n\n" + GenerateRandomString(10) + "lubieplacki" + GenerateRandomString(10), false);
+            await Write("\nWIN KERNEL VIOLATED, SEGMENTATION FAULT");
+            await Write("fatal error: in \"kernel / basic_communication\": memory access violation at address: 0x00000024");
             await Write("\n W14D0M0 KT0, W14D0M0 C0, W14D0M0 K0G0", false);
             await Write("\n'Arasaka Manager.exe' (CoreCLR: clrhost): Loaded");
 
@@ -496,6 +496,7 @@ namespace CPMM.Views
 
             await Write("\nWarning engine/environment.ws(30): Global native function 'EnableDebugOverlayFilter' was not exported from C++ code.");
             await Write("\nGlobal native function 'DebugSetEShowFlag' was not exported from C++ code.");
+            await Write("\nMEMORY VIOLATED, SEGMENTATION FAULT");
             await Write("\n" + GenerateRandomString(200));
             await Write("\n" + GenerateRandomString(212));
             await Write("\n" + "W3 H4VE A C1TY T0 BU4N");
@@ -641,6 +642,8 @@ namespace CPMM.Views
             await Write("\n" + GenerateRandomString(120), true, 100);
             await Write("\n" + GenerateRandomString(120), true, 100);
 
+            await Write("\nfatal error: in \"kernel / restricted_area\": memory access violation at address: 0x00000029");
+
             await Write("\n.");
             await Write("\n.");
             await Write("\n.");
@@ -657,7 +660,7 @@ namespace CPMM.Views
 
             await DrawBlinker(6);
 
-            await Write("Your device is ready, please come inside...");
+            await Write("Your device is ready, please come inside...\n\n");
 
             await Task.Delay(500);
 

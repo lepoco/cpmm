@@ -6,6 +6,7 @@
 using CPMM.Views;
 using System;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace CPMM.Code
 {
@@ -51,5 +52,11 @@ namespace CPMM.Code
         /// </summary>
         /// <param name="callback">An Action delegate to invoke through the dispatcher.</param>
         public static void Dispatch(Action callback) => Application.Current.Dispatcher.Invoke(callback);
+
+        /// <summary>
+        /// Asynchronously executes delegated action on UI thread.
+        /// </summary>
+        /// <param name="callback">An Action delegate to invoke through the dispatcher.</param>
+        public static DispatcherOperation DispatchAsync(Action callback) => Application.Current.Dispatcher.InvokeAsync(callback);
     }
 }

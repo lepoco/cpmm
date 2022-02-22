@@ -3,6 +3,7 @@
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
+using CPMM.Code;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -19,7 +20,12 @@ namespace CPMM.Views
 
             InitializeComponent();
 
+
+
             // Debug hacking window
+            // Show on first run, OR skip if shift key pressed
+            Hide();
+
             new Hacking
             {
                 Config = new Hacking.Configuration
@@ -33,12 +39,15 @@ namespace CPMM.Views
             }.Show();
         }
 
-        private async Task<bool> OnHackingFinished(object sender)
+        private async Task OnHackingFinished(object sender)
         {
 #if DEBUG
             System.Diagnostics.Debug.WriteLine($"INFO | {typeof(Hacking)} finished, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}", "CPMM");
 #endif
-            return true;
+            await GH.DispatchAsync(() =>
+            {
+                Show();
+            });
         }
 
         private void RootNavigation_OnLoaded(object sender, RoutedEventArgs e)
