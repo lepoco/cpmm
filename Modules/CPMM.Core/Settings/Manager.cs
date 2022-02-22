@@ -39,14 +39,14 @@ namespace CPMM.Core.Settings
                 "settings.json"
             );
 
-            Task.Run(Prepare);
+            Prepare();
         }
 
         /// <summary>
         /// Checks directory, creates it if needed. Saves default options.
         /// </summary>
         /// <returns></returns>
-        private async Task Prepare()
+        private void Prepare()
         {
             if (!Directory.Exists(_directory))
             {
@@ -62,28 +62,37 @@ namespace CPMM.Core.Settings
             }
 
             if (!File.Exists(Path) || new FileInfo(Path).Length == 0)
-                await SaveAsync();
+                Save();
             else
-                await ReadAsync();
+                Read();
         }
 
-
-        public async Task SaveAsync()
+        public void Save()
         {
             if (String.IsNullOrEmpty(Path))
                 throw new NullReferenceException(
                     $"ERROR | The write path must be defined in the {typeof(Manager)} constructor.");
 
-            await Task.Run(() => JsonData.Write<Options>(Path, Options));
+            JsonData.Write(Path, Options);
+        }
+
+        public async Task SaveAsync()
+        {
+            await Task.Run(Save);
+        }
+
+        public void Read()
+        {
+            if (String.IsNullOrEmpty(Path))
+                throw new NullReferenceException(
+                    $"ERROR | The write path must be defined in the {typeof(Manager)} constructor.");
+
+            Options = JsonData.Read<Options>(Path);
         }
 
         public async Task ReadAsync()
         {
-            if (String.IsNullOrEmpty(Path))
-                throw new NullReferenceException(
-                    $"ERROR | The write path must be defined in the {typeof(Manager)} constructor.");
-
-            await Task.Run(() => Options = JsonData.Read<Options>(Path));
+            await Task.Run(Read);
         }
     }
 }

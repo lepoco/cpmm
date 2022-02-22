@@ -9,13 +9,13 @@ namespace CPMM.Core.Win32
 {
     public class User32
     {
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindow(string? lpClassName, string lpWindowName);
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
     }
 }

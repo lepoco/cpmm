@@ -24,7 +24,9 @@ namespace CPMM
         {
             DropIfAlreadyRunning();
 
+#if RELEASE
             AppDomain.CurrentDomain!.UnhandledException += Code.UnhandledException.OnUnhandledException;
+#endif
         }
 
         ~App()
@@ -64,6 +66,7 @@ namespace CPMM
             if (Process.GetProcesses().Count(p => p.ProcessName == proc.ProcessName) < 2)
                 return;
 
+            // Process name is different from main window title
             var baseInstance = User32.FindWindow(null, "Cyberpunk 2077 Mod Manager");
             if (baseInstance != IntPtr.Zero)
             {
@@ -73,7 +76,7 @@ namespace CPMM
             }
 
             // Close current
-            App.Current.Shutdown();
+            Shutdown();
         }
     }
 }

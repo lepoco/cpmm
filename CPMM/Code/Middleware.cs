@@ -33,8 +33,6 @@ namespace CPMM.Code
 
         public bool Initialize()
         {
-            Settings.ReadAsync();
-
             SetLanguage(Settings.Options.Language);
 
             Shortcuts.Initialize(Application.Current.MainWindow!);
