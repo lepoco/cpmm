@@ -34,11 +34,11 @@ namespace CPMM.Core.Input
             if (mainWindow == null)
                 return;
 
-            mainWindow.KeyUp += Application_KeyUp;
+            mainWindow.KeyUp += MainWindow_KeyUp;
             _recentKeys.Clear();
         }
 
-        private void Application_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        private void MainWindow_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             var focusedElement = FocusManager.GetFocusedElement(Application.Current.MainWindow!);
 

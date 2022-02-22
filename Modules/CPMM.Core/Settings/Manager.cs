@@ -3,22 +3,81 @@
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
+using System.IO;
+
 namespace CPMM.Core.Settings
 {
     public class Manager
     {
+        private string _directory;
+
+        /// <summary>
+        /// All application options.
+        /// </summary>
         public Options Options { get; internal set; } = new();
 
-        public async Task<bool> SaveAsync()
+        /// <summary>
+        /// Path to the application options folder.
+        /// </summary>
+        public string Path { get; }
+
+        public Manager()
         {
-            // save to app data
-            return true;
+            _directory = System.IO.Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "lepo_co\\cpmm"
+            );
+
+            Path = System.IO.Path.Combine(
+                _directory,
+                "settings.json"
+            );
+
+            Task.Run(Prepare);
         }
 
-        public async Task<bool> ReadAsync()
+        /// <summary>
+        /// Checks directory, creates it if needed. Saves default options.
+        /// </summary>
+        /// <returns></returns>
+        private async Task Prepare()
         {
-            // Options = read from appdata
-            return true;
+            if (!Directory.Exists(_directory))
+            {
+                Directory.CreateDirectory(_directory);
+
+                var directoryInfo = new DirectoryInfo(_directory);
+                directoryInfo.Attributes &= ~FileAttributes.ReadOnly;
+
+                var info = directoryInfo.GetFileSystemInfos("*", SearchOption.AllDirectories);
+
+                foreach (var t in info)
+                    t.Attributes = FileAttributes.Normal;
+            }
+
+            if (!File.Exists(Path) || new FileInfo(Path).Length == 0)
+                await SaveAsync();
+            else
+                await ReadAsync();
+        }
+
+
+        public async Task SaveAsync()
+        {
+            if (String.IsNullOrEmpty(Path))
+                throw new NullReferenceException(
+                    $"ERROR | The write path must be defined in the {typeof(Manager)} constructor.");
+
+            await Task.Run(() => JsonData.Write<Options>(Path, Options));
+        }
+
+        public async Task ReadAsync()
+        {
+            if (String.IsNullOrEmpty(Path))
+                throw new NullReferenceException(
+                    $"ERROR | The write path must be defined in the {typeof(Manager)} constructor.");
+
+            await Task.Run(() => Options = JsonData.Read<Options>(Path));
         }
     }
 }

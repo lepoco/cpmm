@@ -22,19 +22,19 @@ namespace CPMM.Views
 
             // Debug hacking window
             // Show on first run, OR skip if shift key pressed
-            Hide();
+            //Hide();
 
-            new Hacking
-            {
-                Config = new Hacking.Configuration
-                {
-                    LockUserControl = true,
-                    ShowFullIntro = true,
-                    TopMost = true
-                },
-                WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                OnFinished = OnHackingFinished
-            }.Show();
+            //new Hacking
+            //{
+            //    Config = new Hacking.Configuration
+            //    {
+            //        LockUserControl = true,
+            //        ShowFullIntro = true,
+            //        TopMost = true
+            //    },
+            //    WindowStartupLocation = WindowStartupLocation.CenterScreen,
+            //    OnFinished = OnHackingFinished
+            //}.Show();
         }
 
         private async Task OnHackingFinished(object sender)
