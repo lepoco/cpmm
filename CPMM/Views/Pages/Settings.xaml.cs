@@ -3,18 +3,94 @@
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
+using CPMM.Code;
+using Lepo.i18n;
+using System;
+using System.Collections.Generic;
 using System.Windows.Controls;
 
 namespace CPMM.Views.Pages
 {
+    internal class SettingsData : ViewData
+    {
+        private bool _useMica = true;
+        public bool UseMica
+        {
+            get => _useMica;
+            set => UpdateProperty(ref _useMica, value, nameof(UseMica));
+        }
+
+        private string _gameRootDirectory = Translator.String("global.directoryNotSelected");
+        public string GameRootDirectory
+        {
+            get => _gameRootDirectory;
+            set => UpdateProperty(ref _gameRootDirectory, value, nameof(GameRootDirectory));
+        }
+
+        private string _gameSettingsDirectory = Translator.String("global.directoryNotSelected");
+        public string GameSettingsDirectory
+        {
+            get => _gameSettingsDirectory;
+            set => UpdateProperty(ref _gameSettingsDirectory, value, nameof(GameSettingsDirectory));
+        }
+
+        private string _gameSavesDirectory = Translator.String("global.directoryNotSelected");
+        public string GameSavesDirectory
+        {
+            get => _gameSavesDirectory;
+            set => UpdateProperty(ref _gameSavesDirectory, value, nameof(GameSavesDirectory));
+        }
+
+        private IEnumerable<string> _languageOptions = new[]
+        {
+            "English",
+            "Polski"
+        };
+        public IEnumerable<string> LanguageOptions
+        {
+            get => _languageOptions;
+            set => UpdateProperty(ref _languageOptions, value, nameof(LanguageOptions));
+        }
+
+        private IEnumerable<string> _homePages = new[]
+        {
+            Translator.String("container.nav.dashboard"),
+            Translator.String("container.nav.list"),
+            Translator.String("container.nav.install"),
+            Translator.String("container.nav.settings")
+        };
+        public IEnumerable<string> HomePages
+        {
+            get => _homePages;
+            set => UpdateProperty(ref _homePages, value, nameof(HomePages));
+        }
+    }
+
     /// <summary>
     /// Interaction logic for Settings.xaml
     /// </summary>
     public partial class Settings : Page
     {
+        internal SettingsData SettingsDataStack { get; } = new();
+
         public Settings()
         {
             InitializeComponent();
+            InitializeData();
+        }
+
+        private void InitializeData()
+        {
+            if (!String.IsNullOrEmpty(GH.Settings.Options.GameRootDirectory))
+                SettingsDataStack.GameRootDirectory = GH.Settings.Options.GameRootDirectory;
+
+            if (!String.IsNullOrEmpty(GH.Settings.Options.GameSettingsDirectory))
+                SettingsDataStack.GameSettingsDirectory = GH.Settings.Options.GameSettingsDirectory;
+
+            if (!String.IsNullOrEmpty(GH.Settings.Options.GameSavesDirectory))
+                SettingsDataStack.GameSavesDirectory = GH.Settings.Options.GameSavesDirectory;
+
+            DataContext = SettingsDataStack;
         }
     }
 }

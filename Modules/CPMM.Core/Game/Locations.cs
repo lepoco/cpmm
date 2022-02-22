@@ -13,13 +13,13 @@ namespace CPMM.Core.Game
         /// <summary>
         /// Suffix for saved games in user root directory.
         /// </summary>
-        ///  <value><see langword="\Saved Games\CD Projekt Red\Cyberpunk 2077"></see></value>
+        ///  <value><see langword="Saved Games\CD Projekt Red\Cyberpunk 2077"></see></value>
         public static string SavesSuffix => @"Saved Games\CD Projekt Red\Cyberpunk 2077";
 
         /// <summary>
         /// Suffix for game settings in user root directory.
         /// </summary>
-        /// <value><see langword="\AppData\Local\CD Projekt Red\Cyberpunk 2077"></see></value>
+        /// <value><see langword="AppData\Local\CD Projekt Red\Cyberpunk 2077"></see></value>
         public static string SettingsSuffix => @"AppData\Local\CD Projekt Red\Cyberpunk 2077";
 
         /// <summary>

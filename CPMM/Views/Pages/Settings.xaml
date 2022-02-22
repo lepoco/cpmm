@@ -22,6 +22,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!--  DIRECTORIES  -->
@@ -32,29 +33,38 @@
             Text="{i18n:Translate String='settings.directories'}" />
 
         <wpfui:CardControl
-            Title="{i18n:Translate String='settings.card.dir.title'}"
+            Title="{i18n:Translate String='settings.card.rootGameDir.title'}"
             Grid.Row="1"
             Icon="Folder24"
-            Subtitle="{i18n:Translate String='settings.card.dir.description'}">
-            <wpfui:Button Appearance="Secondary" Content="{i18n:Translate String='settings.select'}" />
+            Subtitle="{Binding GameRootDirectory, Mode=OneWay}">
+            <wpfui:Button
+                MinWidth="120"
+                Appearance="Secondary"
+                Content="{i18n:Translate String='settings.selectDir'}" />
         </wpfui:CardControl>
 
         <wpfui:CardControl
-            Title="{i18n:Translate String='settings.card.dir.title'}"
+            Title="{i18n:Translate String='settings.card.settingsGameDir.title'}"
             Grid.Row="2"
             Margin="0,12,0,0"
             Icon="Folder24"
-            Subtitle="{i18n:Translate String='settings.card.dir.description'}">
-            <wpfui:Button Appearance="Secondary" Content="{i18n:Translate String='settings.select'}" />
+            Subtitle="{Binding GameSettingsDirectory, Mode=OneWay}">
+            <wpfui:Button
+                MinWidth="120"
+                Appearance="Secondary"
+                Content="{i18n:Translate String='settings.selectDir'}" />
         </wpfui:CardControl>
 
         <wpfui:CardControl
-            Title="{i18n:Translate String='settings.card.dir.title'}"
+            Title="{i18n:Translate String='settings.card.savesGameDir.title'}"
             Grid.Row="3"
             Margin="0,12,0,0"
             Icon="Folder24"
-            Subtitle="{i18n:Translate String='settings.card.dir.description'}">
-            <wpfui:Button Appearance="Secondary" Content="{i18n:Translate String='settings.select'}" />
+            Subtitle="{Binding GameSavesDirectory, Mode=OneWay}">
+            <wpfui:Button
+                MinWidth="120"
+                Appearance="Secondary"
+                Content="{i18n:Translate String='settings.selectDir'}" />
         </wpfui:CardControl>
 
         <!--  APPLICATION  -->
@@ -67,18 +77,33 @@
         <wpfui:CardControl
             Title="{i18n:Translate String='settings.card.home.title'}"
             Grid.Row="5"
-            Icon="Folder24"
+            Icon="Home24"
             Subtitle="{i18n:Translate String='settings.card.home.description'}">
-            <ComboBox />
+            <ComboBox
+                MinWidth="120"
+                ItemsSource="{Binding HomePages, Mode=OneWay}"
+                SelectedIndex="0" />
         </wpfui:CardControl>
 
         <wpfui:CardControl
             Title="{i18n:Translate String='settings.card.language.title'}"
             Grid.Row="6"
             Margin="0,12,0,0"
-            Icon="Folder24"
+            Icon="LocalLanguage24"
             Subtitle="{i18n:Translate String='settings.card.language.description'}">
-            <ComboBox />
+            <ComboBox
+                MinWidth="120"
+                ItemsSource="{Binding LanguageOptions, Mode=OneWay}"
+                SelectedIndex="0" />
+        </wpfui:CardControl>
+
+        <wpfui:CardControl
+            Title="{i18n:Translate String='settings.card.mica.title'}"
+            Grid.Row="7"
+            Margin="0,12,0,0"
+            Icon="PaintBrush24"
+            Subtitle="{i18n:Translate String='settings.card.mica.description'}">
+            <wpfui:ToggleSwitch IsChecked="{Binding UseMica}" />
         </wpfui:CardControl>
     </Grid>
 </Page>

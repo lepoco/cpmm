@@ -41,7 +41,8 @@ namespace CPMM.Views
 
         public Container()
         {
-            WPFUI.Background.Manager.Apply(this);
+            if (GH.Settings.Options.UseMica)
+                WPFUI.Background.Manager.Apply(this);
 
             InitializeComponent();
 

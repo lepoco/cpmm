@@ -1,5 +1,6 @@
 ﻿# Global things
 global.fileNotSelected: File not selected.
+global.directoryNotSelected: The directory has not been selected.
 global.dialog.allFiles: All files
 global.dialog.selectMod: Select Cyberpunk 2077 modification
 global.dialog.selectMod.plural: Select Cyberpunk 2077 modifications
@@ -16,3 +17,17 @@ container.loading.default: Connecting with Arasaka Cloud.
 # Installator
 install.select: Select archive
 install.card.select.title: Archive with modification files
+
+# Settings
+settings.directories: Game directories
+settings.selectDir: Select
+settings.card.rootGameDir.title: Main game directory
+settings.card.settingsGameDir.title: Game settings directory
+settings.card.savesGameDir.title: Game saves directory
+settings.app: App
+settings.card.home.title: Home page
+settings.card.home.description: Which page of the application should be displayed at startup.
+settings.card.language.title: Langauge
+settings.card.language.description: The language of the mod manager interface.
+settings.card.mica.title: Use Fluent Mica background
+settings.card.mica.description: If available, the app will use the Mica background for Windows 11.

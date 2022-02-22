@@ -13,6 +13,8 @@ namespace CPMM.Core.Settings
     {
         public bool Initialized { get; set; } = false;
 
+        public bool UseMica { get; set; } = true;
+
         public bool KeepModsBackup { get; set; } = false;
 
         public bool UseCustomBackupPath { get; set; } = false;
