@@ -670,6 +670,8 @@ namespace CPMM.Views
 
             await ShowBlueScreenOfDeath();
 
+            await Task.Delay(5000);
+
             return true;
         }
     }
