@@ -13,7 +13,7 @@
     Style="{StaticResource UiPageScrollable}"
     mc:Ignorable="d">
 
-    <Grid Margin="24">
+    <Grid Margin="24,0,24,24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />

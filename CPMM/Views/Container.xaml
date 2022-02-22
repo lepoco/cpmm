@@ -80,7 +80,7 @@
                     </Grid.RowDefinitions>
                     <wpfui:Breadcrumb
                         Grid.Row="0"
-                        Margin="24,24,0,0"
+                        Margin="24"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         FontSize="24"
