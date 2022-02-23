@@ -94,6 +94,8 @@ namespace CPMM.Views.Pages
             if (Directory.Exists(userDownloads))
                 DialogSelector.InitialDirectory = userDownloads;
 
+            InstallDataStack.DialogMultiSelect = true;
+
             Installer.GameRootDirectory = GH.Settings.Options.GameRootDirectory;
 
             DataContext = InstallDataStack;
@@ -114,13 +116,14 @@ namespace CPMM.Views.Pages
             {
                 Title = Translator.String("global.dialog.selectMod"),
                 Filter = dialogFilter,
-                CheckPathExists = true,
-                Multiselect = InstallDataStack.DialogMultiSelect
+                CheckPathExists = true
             };
         }
 
         private async void ButtonSelect_OnClick(object sender, RoutedEventArgs e)
         {
+            DialogSelector.Multiselect = InstallDataStack.DialogMultiSelect;
+
             if (!DialogSelector.ShowDialog() ?? false)
                 return;
 

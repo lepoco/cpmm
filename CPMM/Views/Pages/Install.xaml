@@ -53,13 +53,14 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="mods:IMod">
-                        <controls:ModCard Mod="{Binding Path=Instance, Mode=OneWay}" />
+                        <controls:ModCard Margin="0,0,0,12" Mod="{Binding Path=Instance, Mode=OneWay}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
             <StackPanel
                 Grid.Row="2"
+                Margin="0,24,0,0"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
                 <wpfui:Button
