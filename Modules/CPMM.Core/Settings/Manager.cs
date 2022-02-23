@@ -3,6 +3,7 @@
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
+using CPMM.Core.Installer;
 using System.IO;
 
 namespace CPMM.Core.Settings
@@ -48,18 +49,7 @@ namespace CPMM.Core.Settings
         /// <returns></returns>
         private void Prepare()
         {
-            if (!Directory.Exists(_directory))
-            {
-                Directory.CreateDirectory(_directory);
-
-                var directoryInfo = new DirectoryInfo(_directory);
-                directoryInfo.Attributes &= ~FileAttributes.ReadOnly;
-
-                var info = directoryInfo.GetFileSystemInfos("*", SearchOption.AllDirectories);
-
-                foreach (var t in info)
-                    t.Attributes = FileAttributes.Normal;
-            }
+            IOExtension.CreateOpenDirectory(_directory);
 
             if (!File.Exists(Path) || new FileInfo(Path).Length == 0)
                 Save();

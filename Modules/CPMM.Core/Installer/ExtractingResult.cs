@@ -30,5 +30,9 @@ namespace CPMM.Core.Installer
         public string InPath = String.Empty;
 
         public string OutPath = String.Empty;
+
+        public ExtractingResult()
+        {
+        }
     }
 }

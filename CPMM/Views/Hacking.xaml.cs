@@ -33,6 +33,10 @@ namespace CPMM.Views
             public bool TopMost { get; set; } = true;
 
             public bool ShowFullIntro { get; set; } = true;
+
+            public Configuration()
+            {
+            }
         }
 
         private readonly string _randomChars =

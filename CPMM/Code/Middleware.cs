@@ -50,7 +50,7 @@ namespace CPMM.Code
                 $"INFO | {typeof(Middleware)} disposed, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}",
                 "CPMM");
 #endif
-            // Lepo.i18n.Translator.Flush();
+            Lepo.i18n.Translator.Flush();
             // Dispose middleware resources.
         }
 
