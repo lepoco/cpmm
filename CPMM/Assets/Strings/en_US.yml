@@ -31,3 +31,5 @@ settings.card.language.title: Langauge
 settings.card.language.description: The language of the mod manager interface.
 settings.card.mica.title: Use Fluent Mica background
 settings.card.mica.description: If available, the app will use the Mica background for Windows 11.
+settings.card.tray.title: Tray icon
+settings.card.tray.description: Show application icon and menu in system tray.

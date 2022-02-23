@@ -23,6 +23,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!--  DIRECTORIES  -->
@@ -94,7 +95,7 @@
             <ComboBox
                 MinWidth="120"
                 ItemsSource="{Binding LanguageOptions, Mode=OneWay}"
-                SelectedIndex="0" />
+                SelectedIndex="{Binding LanguageIndex, Mode=OneWay}" />
         </wpfui:CardControl>
 
         <wpfui:CardControl
@@ -103,7 +104,16 @@
             Margin="0,12,0,0"
             Icon="PaintBrush24"
             Subtitle="{i18n:Translate String='settings.card.mica.description'}">
-            <wpfui:ToggleSwitch IsChecked="{Binding UseMica}" />
+            <wpfui:ToggleSwitch IsChecked="{Binding UseMica, Mode=OneWay}" />
+        </wpfui:CardControl>
+
+        <wpfui:CardControl
+            Title="{i18n:Translate String='settings.card.tray.title'}"
+            Grid.Row="8"
+            Margin="0,12,0,0"
+            Icon="TrayItemAdd24"
+            Subtitle="{i18n:Translate String='settings.card.tray.description'}">
+            <wpfui:ToggleSwitch IsChecked="{Binding UseTray, Mode=OneWay}" />
         </wpfui:CardControl>
     </Grid>
 </Page>

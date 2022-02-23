@@ -20,6 +20,13 @@ namespace CPMM.Views.Pages
             set => UpdateProperty(ref _useMica, value, nameof(UseMica));
         }
 
+        private bool _useTray = true;
+        public bool UseTray
+        {
+            get => _useTray;
+            set => UpdateProperty(ref _useTray, value, nameof(UseTray));
+        }
+
         private string _gameRootDirectory = Translator.String("global.directoryNotSelected");
         public string GameRootDirectory
         {
@@ -41,11 +48,14 @@ namespace CPMM.Views.Pages
             set => UpdateProperty(ref _gameSavesDirectory, value, nameof(GameSavesDirectory));
         }
 
-        private IEnumerable<string> _languageOptions = new[]
+        private int _languageIndex = 0;
+        public int LanguageIndex
         {
-            "English",
-            "Polski"
-        };
+            get => _languageIndex;
+            set => UpdateProperty(ref _languageIndex, value, nameof(LanguageIndex));
+        }
+
+        private IEnumerable<string> _languageOptions = new string[] { };
         public IEnumerable<string> LanguageOptions
         {
             get => _languageOptions;
@@ -89,6 +99,9 @@ namespace CPMM.Views.Pages
 
             if (!String.IsNullOrEmpty(GH.Settings.Options.GameSavesDirectory))
                 SettingsDataStack.GameSavesDirectory = GH.Settings.Options.GameSavesDirectory;
+
+            SettingsDataStack.LanguageOptions = Languages.GetNames();
+            SettingsDataStack.LanguageIndex = Languages.GetIndexByCode(GH.Settings.Options.Language);
 
             DataContext = SettingsDataStack;
         }
