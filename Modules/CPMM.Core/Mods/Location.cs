@@ -6,7 +6,9 @@
     public enum Location
     {
         Unknown,
+        Root,
         Bin,
+        Binx64,
         Engine,
         R6,
         Archive,

@@ -45,18 +45,24 @@
                 FontWeight="Medium"
                 Text="Mods detected" />
 
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding ParsedMods, Mode=OneWay}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="mods:IMod">
-                        <controls:ModCard Margin="0,0,0,12" Mod="{Binding Path=Instance, Mode=OneWay}" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <wpfui:DynamicScrollViewer
+                Grid.Row="1"
+                Margin="0,0,-20,0"
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto">
+                <ItemsControl Margin="0,0,20,0" ItemsSource="{Binding ParsedMods, Mode=OneWay}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="mods:IMod">
+                            <controls:ModCard Margin="0,0,0,12" Mod="{Binding Path=Instance, Mode=OneWay}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </wpfui:DynamicScrollViewer>
 
             <StackPanel
                 Grid.Row="2"

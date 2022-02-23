@@ -156,6 +156,8 @@ namespace CPMM.Views.Pages
         {
             await Installer.ClearTemps();
 
+            InstallDataStack.ModificationPath = Translator.String("global.fileNotSelected");
+
             InstallDataStack.ParsedMods = new IMod[] { };
 
             InstallDataStack.EnableSelectButton = true;
