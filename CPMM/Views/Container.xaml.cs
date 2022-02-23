@@ -5,6 +5,7 @@
 
 using CPMM.Code;
 using Lepo.i18n;
+using System;
 using System.Windows;
 
 namespace CPMM.Views
@@ -50,6 +51,19 @@ namespace CPMM.Views
                 Initializer.Run();
 
             InitializeData();
+        }
+
+        public void ChangeDisplayedLanguage(string language, string page = "")
+        {
+            // TODO: Here would have to refresh all the views instances and texts in the Container.
+            // RootNavigation.FlushInstances(); <- TODO: Add to WPF UI
+            // As we don't want to keep languages dictionaries, add Flush to Lepo.i18n
+            // TODO: Lepo.i18n.Translator.Flush();
+
+            GH.SetLanguage(language);
+
+            if (!String.IsNullOrEmpty(page))
+                RootNavigation.Navigate(page, true);
         }
 
         private void InitializeData()

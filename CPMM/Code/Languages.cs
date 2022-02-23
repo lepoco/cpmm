@@ -9,6 +9,9 @@ using System.Linq;
 
 namespace CPMM.Code
 {
+    /// <summary>
+    /// Contains information about supported languages.
+    /// </summary>
     internal static class Languages
     {
         public static readonly IDictionary<string, string> Map = new Dictionary<string, string>
@@ -16,6 +19,7 @@ namespace CPMM.Code
             // Keep EN first
             {"en_US", "English"},
 
+            // Keep the rest alphabetically by codes
             {"cs_CZ",  "Čeština"}, // Czech
             {"de_DE",  "Deutsch"}, // German
             {"es_ES",  "Español"}, // Spanish

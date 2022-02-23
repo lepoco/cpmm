@@ -11,7 +11,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 
 namespace CPMM.Code
 {
@@ -115,6 +114,8 @@ namespace CPMM.Code
                 return;
 
             detectedLanguage = detectedLanguage.Substring(0, 2);
+
+            // TODO: Use Languages class here
 
             switch (detectedLanguage)
             {
