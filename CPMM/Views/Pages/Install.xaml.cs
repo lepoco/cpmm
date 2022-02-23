@@ -1,5 +1,5 @@
 ﻿// This Source Code Form is subject to the terms of the GNU GPL-3.0.
-// If a copy of the MIT was not distributed with this file, You can obtain one at https://www.gnu.org/licenses/gpl-3.0.en.html.
+// If a copy of the GPL was not distributed with this file, You can obtain one at https://www.gnu.org/licenses/gpl-3.0.en.html.
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
@@ -66,6 +66,13 @@ namespace CPMM.Views.Pages
             get => _listVisibility;
             set => UpdateProperty(ref _listVisibility, value, nameof(ListVisibility));
         }
+
+        private Visibility _loadingVisibility = Visibility.Collapsed;
+        public Visibility LoadingVisibility
+        {
+            get => _loadingVisibility;
+            set => UpdateProperty(ref _loadingVisibility, value, nameof(LoadingVisibility));
+        }
     }
 
     /// <summary>
@@ -130,6 +137,15 @@ namespace CPMM.Views.Pages
             InstallDataStack.EnableSelectButton = false;
             InstallDataStack.EnableInstallButton = false;
             InstallDataStack.ListVisibility = Visibility.Collapsed;
+            InstallDataStack.LoadingVisibility = Visibility.Visible;
+
+            if (InstallDataStack.DialogMultiSelect)
+                if (DialogSelector.FileNames.Length > 1)
+                    InstallDataStack.ModificationPath = Translator.Plural("global.selectedFiles.single", "global.selectedFiles.plural", DialogSelector.FileNames.Length);
+                else
+                    InstallDataStack.ModificationPath = DialogSelector.FileNames[0] ?? Translator.String("global.fileNotSelected");
+            else
+                InstallDataStack.ModificationPath = DialogSelector.FileName;
 
 #if DEBUG
             System.Diagnostics.Debug.WriteLine($"INFO | {DialogSelector.FileName} selected, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}", "CPMM");
@@ -143,21 +159,17 @@ namespace CPMM.Views.Pages
 
             InstallDataStack.ParsedMods = await Installer.ParseModsAsync(UnpackedMods);
 
+            InstallDataStack.EnableSelectButton = true;
+
             if (InstallDataStack.ParsedMods.Any())
             {
+                // Add a delay to avoid stuttering of the UI
+                await Task.Delay(400);
+
                 InstallDataStack.EnableInstallButton = true;
+                InstallDataStack.LoadingVisibility = Visibility.Collapsed;
                 InstallDataStack.ListVisibility = Visibility.Visible;
             }
-
-            if (InstallDataStack.DialogMultiSelect)
-                if (DialogSelector.FileNames.Length > 1)
-                    InstallDataStack.ModificationPath = Translator.Plural("global.selectedFiles.single", "global.selectedFiles.plural", DialogSelector.FileNames.Length);
-                else
-                    InstallDataStack.ModificationPath = DialogSelector.FileNames[0] ?? Translator.String("global.fileNotSelected");
-            else
-                InstallDataStack.ModificationPath = DialogSelector.FileName;
-
-            InstallDataStack.EnableSelectButton = true;
         }
 
         private async Task TryPrepareSingle(string filePath)

@@ -1,5 +1,5 @@
 ﻿// This Source Code Form is subject to the terms of the GNU GPL-3.0.
-// If a copy of the MIT was not distributed with this file, You can obtain one at https://www.gnu.org/licenses/gpl-3.0.en.html.
+// If a copy of the GPL was not distributed with this file, You can obtain one at https://www.gnu.org/licenses/gpl-3.0.en.html.
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
@@ -30,7 +30,7 @@ namespace CPMM.Code
 
             // Show initial hacking console if user is not holding one of the shift keys
 #if RELEASE
-            if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
+            if (!(System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftShift) || System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.RightShift)))
                 ShowHackingConsole();
 #endif
         }

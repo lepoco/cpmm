@@ -1,4 +1,5 @@
 ﻿# Global things
+global.unknown: Unknown
 global.fileNotSelected: File not selected.
 global.directoryNotSelected: The directory has not been selected.
 global.dialog.allFiles: All files
@@ -15,6 +16,17 @@ container.nav.install: Add new
 container.nav.about: About
 container.nav.settings: Settings
 container.loading.default: Connecting with Arasaka Cloud.
+
+# Dashboard
+dashboard.headers.installedMods: Installed modifications
+dashboard.headers.gameVersion: Game version
+dashboard.headers.managerVersion: Manager version
+dashboard.card.list.title: Installed modifications
+dashboard.card.list.description: Page containing a list of all mods you have installed.
+dashboard.card.add.title: Add new
+dashboard.card.add.description: Add new modifications.
+dashboard.card.help.title: Help
+dashboard.card.help.description: Get help on the most common problems.
 
 # Installator
 install.select: Select archive

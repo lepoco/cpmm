@@ -74,5 +74,9 @@
                     IsEnabled="{Binding EnableInstallButton, Mode=OneWay}" />
             </StackPanel>
         </Grid>
+
+        <Grid Grid.Row="1" Visibility="{Binding LoadingVisibility, Mode=OneWay}">
+            <wpfui:ProgressRing IsIndeterminate="True" />
+        </Grid>
     </Grid>
 </Page>
