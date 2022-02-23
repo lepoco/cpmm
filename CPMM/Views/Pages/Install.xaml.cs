@@ -61,6 +61,7 @@ namespace CPMM.Views.Pages
         }
 
         private Visibility _listVisibility = Visibility.Collapsed;
+
         public Visibility ListVisibility
         {
             get => _listVisibility;
@@ -68,6 +69,7 @@ namespace CPMM.Views.Pages
         }
 
         private Visibility _loadingVisibility = Visibility.Collapsed;
+
         public Visibility LoadingVisibility
         {
             get => _loadingVisibility;
@@ -127,51 +129,6 @@ namespace CPMM.Views.Pages
             };
         }
 
-        private async void ButtonSelect_OnClick(object sender, RoutedEventArgs e)
-        {
-            DialogSelector.Multiselect = InstallDataStack.DialogMultiSelect;
-
-            if (!DialogSelector.ShowDialog() ?? false)
-                return;
-
-            InstallDataStack.EnableSelectButton = false;
-            InstallDataStack.EnableInstallButton = false;
-            InstallDataStack.ListVisibility = Visibility.Collapsed;
-            InstallDataStack.LoadingVisibility = Visibility.Visible;
-
-            if (InstallDataStack.DialogMultiSelect)
-                if (DialogSelector.FileNames.Length > 1)
-                    InstallDataStack.ModificationPath = Translator.Plural("global.selectedFiles.single", "global.selectedFiles.plural", DialogSelector.FileNames.Length);
-                else
-                    InstallDataStack.ModificationPath = DialogSelector.FileNames[0] ?? Translator.String("global.fileNotSelected");
-            else
-                InstallDataStack.ModificationPath = DialogSelector.FileName;
-
-#if DEBUG
-            System.Diagnostics.Debug.WriteLine($"INFO | {DialogSelector.FileName} selected, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}", "CPMM");
-#endif
-            await Installer.ClearTemps();
-
-            if (InstallDataStack.DialogMultiSelect)
-                await TryPrepareMultiple(DialogSelector.FileNames);
-            else
-                await TryPrepareSingle(DialogSelector.FileName);
-
-            InstallDataStack.ParsedMods = await Installer.ParseModsAsync(UnpackedMods);
-
-            InstallDataStack.EnableSelectButton = true;
-
-            if (InstallDataStack.ParsedMods.Any())
-            {
-                // Add a delay to avoid stuttering of the UI
-                await Task.Delay(400);
-
-                InstallDataStack.EnableInstallButton = true;
-                InstallDataStack.LoadingVisibility = Visibility.Collapsed;
-                InstallDataStack.ListVisibility = Visibility.Visible;
-            }
-        }
-
         private async Task TryPrepareSingle(string filePath)
         {
             UnpackedMods.Clear();
@@ -195,14 +152,82 @@ namespace CPMM.Views.Pages
             }
         }
 
-        private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+        private async Task ResetAsync()
         {
-            //throw new NotImplementedException();
+            await Installer.ClearTemps();
+
+            InstallDataStack.ParsedMods = new IMod[] { };
+
+            InstallDataStack.EnableSelectButton = true;
+            InstallDataStack.EnableInstallButton = false;
+            InstallDataStack.ListVisibility = Visibility.Collapsed;
+            InstallDataStack.LoadingVisibility = Visibility.Collapsed;
         }
 
-        private void ButtonInstall_OnClick(object sender, RoutedEventArgs e)
+        private async void ButtonSelect_OnClick(object sender, RoutedEventArgs e)
         {
-            //throw new NotImplementedException();
+            DialogSelector.Multiselect = InstallDataStack.DialogMultiSelect;
+
+            if (!DialogSelector.ShowDialog() ?? false)
+                return;
+
+            InstallDataStack.EnableSelectButton = false;
+            InstallDataStack.EnableInstallButton = false;
+            InstallDataStack.ListVisibility = Visibility.Collapsed;
+            InstallDataStack.LoadingVisibility = Visibility.Visible;
+
+            if (InstallDataStack.DialogMultiSelect)
+                if (DialogSelector.FileNames.Length > 1)
+                    InstallDataStack.ModificationPath = Translator.Plural("global.selectedFiles.single",
+                        "global.selectedFiles.plural", DialogSelector.FileNames.Length);
+                else
+                    InstallDataStack.ModificationPath =
+                        DialogSelector.FileNames[0] ?? Translator.String("global.fileNotSelected");
+            else
+                InstallDataStack.ModificationPath = DialogSelector.FileName;
+
+#if DEBUG
+            System.Diagnostics.Debug.WriteLine(
+                $"INFO | {DialogSelector.FileName} selected, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}",
+                "CPMM");
+#endif
+            await Installer.ClearTemps();
+
+            if (InstallDataStack.DialogMultiSelect)
+                await TryPrepareMultiple(DialogSelector.FileNames);
+            else
+                await TryPrepareSingle(DialogSelector.FileName);
+
+            InstallDataStack.ParsedMods = await Installer.ParseModsAsync(UnpackedMods);
+
+            InstallDataStack.EnableSelectButton = true;
+
+            if (InstallDataStack.ParsedMods.Any())
+            {
+                // Add a delay to avoid stuttering of the UI
+                await Task.Delay(400);
+
+                InstallDataStack.EnableInstallButton = true;
+                InstallDataStack.LoadingVisibility = Visibility.Collapsed;
+                InstallDataStack.ListVisibility = Visibility.Visible;
+            }
+        }
+
+        private async void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+        {
+            await ResetAsync();
+        }
+
+        private async void ButtonInstall_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!InstallDataStack.ParsedMods.Any())
+                return;
+
+            foreach (var singleMod in InstallDataStack.ParsedMods)
+            {
+                // TODO: What's next?
+                await Installer.InstallAsync(singleMod);
+            }
         }
     }
 }

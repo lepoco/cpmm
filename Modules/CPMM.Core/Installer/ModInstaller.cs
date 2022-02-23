@@ -66,6 +66,11 @@ namespace CPMM.Core.Installer
             return false;
         }
 
+        public async Task<bool> InstallAsync(IMod modification)
+        {
+            return false;
+        }
+
         private void PrepareTempPath()
         {
             if (String.IsNullOrEmpty(TemporaryPath) || !Directory.Exists(TemporaryPath))
