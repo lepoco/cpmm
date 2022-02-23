@@ -62,13 +62,7 @@ namespace CPMM.Views.Pages
             set => UpdateProperty(ref _languageOptions, value, nameof(LanguageOptions));
         }
 
-        private IEnumerable<string> _homePages = new[]
-        {
-            Translator.String("container.nav.dashboard"),
-            Translator.String("container.nav.list"),
-            Translator.String("container.nav.install"),
-            Translator.String("container.nav.settings")
-        };
+        private IEnumerable<string> _homePages = new string[] { };
         public IEnumerable<string> HomePages
         {
             get => _homePages;
@@ -99,6 +93,14 @@ namespace CPMM.Views.Pages
 
             if (!String.IsNullOrEmpty(GH.Settings.Options.GameSavesDirectory))
                 SettingsDataStack.GameSavesDirectory = GH.Settings.Options.GameSavesDirectory;
+
+            SettingsDataStack.HomePages = new[]
+            {
+                Translator.String("container.nav.dashboard"),
+                Translator.String("container.nav.list"),
+                Translator.String("container.nav.install"),
+                Translator.String("container.nav.settings")
+            };
 
             SettingsDataStack.LanguageOptions = Languages.GetNames();
             SettingsDataStack.LanguageIndex = Languages.GetIndexByCode(GH.Settings.Options.Language);
