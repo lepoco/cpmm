@@ -16,6 +16,12 @@ namespace CPMM.Core.Installer
         public static async Task<ExtractingResult> ExtractAsync(string input, string output, string sourceHash = "")
         {
             if (!File.Exists(input))
+            {
+#if DEBUG
+                System.Diagnostics.Debug.WriteLine(
+                    $"WARNING | {input} does not exist, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}",
+                    "CPMM.Core");
+#endif
                 return new ExtractingResult
                 {
                     InPath = input,
@@ -23,6 +29,8 @@ namespace CPMM.Core.Installer
                     SourceHash = sourceHash,
                     Status = ExtractingResult.ExtractingStatus.FileNotExist
                 };
+            }
+
 
             if (String.IsNullOrEmpty(sourceHash))
                 sourceHash = await IOExtension.ComputeHashAsync(input);
@@ -33,7 +41,7 @@ namespace CPMM.Core.Installer
             {
 #if DEBUG
                 System.Diagnostics.Debug.WriteLine(
-                    $"WARNING | {input} is password protected (or another error has occurred)., Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}",
+                    $"WARNING | {input} is password protected (or another error has occurred), Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}",
                     "CPMM.Core");
 #endif
                 return new ExtractingResult
@@ -54,7 +62,7 @@ namespace CPMM.Core.Installer
             {
 #if DEBUG
                 System.Diagnostics.Debug.WriteLine(
-                    $"WARNING | {input} archive is unsupported., Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}",
+                    $"WARNING | {input} archive is unsupported, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}",
                     "CPMM.Core");
 #endif
                 return new ExtractingResult
@@ -66,15 +74,40 @@ namespace CPMM.Core.Installer
                 };
             }
 
-            await extractor.ExtractArchiveAsync(output);
-
-            return new ExtractingResult
+            try
             {
-                InPath = input,
-                OutPath = output,
-                SourceHash = sourceHash,
-                Status = ExtractingResult.ExtractingStatus.Success
-            };
+                await extractor.ExtractArchiveAsync(output);
+
+#if DEBUG
+                System.Diagnostics.Debug.WriteLine(
+                    $"INFO | Archive extracted to {output}, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}",
+                    "CPMM.Core");
+#endif
+
+                return new ExtractingResult
+                {
+                    InPath = input,
+                    OutPath = output,
+                    SourceHash = sourceHash,
+                    Status = ExtractingResult.ExtractingStatus.Success
+                };
+            }
+            catch (Exception e)
+            {
+#if DEBUG
+                System.Diagnostics.Debug.WriteLine(
+                    $"INFO | Extracting {input} failed | {e}, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}",
+                    "CPMM.Core");
+#endif
+
+                return new ExtractingResult
+                {
+                    InPath = input,
+                    OutPath = output,
+                    SourceHash = sourceHash,
+                    Status = ExtractingResult.ExtractingStatus.Failure
+                };
+            }
         }
     }
 }

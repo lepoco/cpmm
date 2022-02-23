@@ -5,6 +5,7 @@
 
 using CPMM.Code;
 using CPMM.Core.Installer;
+using CPMM.Core.Mods;
 using Lepo.i18n;
 using Microsoft.Win32;
 using System.Collections.Generic;
@@ -16,6 +17,14 @@ namespace CPMM.Views.Pages
 {
     internal class InstallData : ViewData
     {
+        private bool _enableInstallButton = true;
+
+        public bool EnableInstallButton
+        {
+            get => _enableInstallButton;
+            set => UpdateProperty(ref _enableInstallButton, value, nameof(EnableInstallButton));
+        }
+
         private string _modificationPath = Translator.String("global.fileNotSelected");
 
         public string ModificationPath
@@ -31,6 +40,14 @@ namespace CPMM.Views.Pages
             get => _dialogMultiSelect;
             set => UpdateProperty(ref _dialogMultiSelect, value, nameof(DialogMultiSelect));
         }
+
+        private IEnumerable<IMod> _parsedMods = new IMod[] { };
+
+        public IEnumerable<IMod> ParsedMods
+        {
+            get => _parsedMods;
+            set => UpdateProperty(ref _parsedMods, value, nameof(ParsedMods));
+        }
     }
 
     /// <summary>
@@ -44,7 +61,7 @@ namespace CPMM.Views.Pages
 
         internal readonly ModInstaller Installer = new();
 
-        internal readonly List<ExtractingResult> UnpackedFiles = new List<ExtractingResult>();
+        internal readonly List<ExtractingResult> UnpackedMods = new List<ExtractingResult>();
 
         public Install()
         {
@@ -79,14 +96,19 @@ namespace CPMM.Views.Pages
             if (!DialogSelector.ShowDialog() ?? false)
                 return;
 
+            InstallDataStack.EnableInstallButton = false;
+
 #if DEBUG
             System.Diagnostics.Debug.WriteLine($"INFO | {DialogSelector.FileName} selected, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}", "CPMM");
 #endif
+            await Installer.ClearTemps();
+
             if (InstallDataStack.DialogMultiSelect)
                 await TryPrepareMultiple(DialogSelector.FileNames);
             else
                 await TryPrepareSingle(DialogSelector.FileName);
 
+            InstallDataStack.ParsedMods = await Installer.ParseModsAsync(UnpackedMods);
 
             if (InstallDataStack.DialogMultiSelect)
                 if (DialogSelector.FileNames.Length > 1)
@@ -95,28 +117,30 @@ namespace CPMM.Views.Pages
                     InstallDataStack.ModificationPath = DialogSelector.FileNames[0] ?? Translator.String("global.fileNotSelected");
             else
                 InstallDataStack.ModificationPath = DialogSelector.FileName;
+
+            InstallDataStack.EnableInstallButton = true;
         }
 
         private async Task TryPrepareSingle(string filePath)
         {
-            UnpackedFiles.Clear();
+            UnpackedMods.Clear();
 
             var unpackingResult = await Installer.TryUnpackAsync(filePath);
 
             if (unpackingResult.Status == ExtractingResult.ExtractingStatus.Success)
-                UnpackedFiles.Add(unpackingResult);
+                UnpackedMods.Add(unpackingResult);
         }
 
         private async Task TryPrepareMultiple(string[] filePaths)
         {
-            UnpackedFiles.Clear();
+            UnpackedMods.Clear();
 
             foreach (var singleFile in filePaths)
             {
                 var unpackingResult = await Installer.TryUnpackAsync(singleFile);
 
                 if (unpackingResult.Status == ExtractingResult.ExtractingStatus.Success)
-                    UnpackedFiles.Add(unpackingResult);
+                    UnpackedMods.Add(unpackingResult);
             }
         }
     }

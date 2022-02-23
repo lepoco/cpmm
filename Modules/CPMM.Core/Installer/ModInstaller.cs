@@ -19,13 +19,23 @@ namespace CPMM.Core.Installer
         {
         }
 
+        public async Task<bool> ClearTemps()
+        {
+            PrepareTempPath();
+
+            if (!Directory.Exists(TemporaryPath))
+                return true;
+
+            return await Task.Run(() =>
+            {
+                Directory.Delete(TemporaryPath, true);
+                return true;
+            });
+        }
+
         public async Task<ExtractingResult> TryUnpackAsync(string sourcePath)
         {
-            if (String.IsNullOrEmpty(TemporaryPath))
-                TemporaryPath = Path.Combine(
-                    Path.GetTempPath(),
-                    "cpmm\\mods"
-                );
+            PrepareTempPath();
 
             var fileHash = await IOExtension.ComputeHashAsync(sourcePath);
 
@@ -39,9 +49,25 @@ namespace CPMM.Core.Installer
             );
         }
 
+        public async Task<IEnumerable<IMod>> ParseModsAsync(IEnumerable<ExtractingResult> extractedMods)
+        {
+            var parsedMods = new List<Mod>();
+
+            return parsedMods;
+        }
+
         public bool Install(IMod modification)
         {
             return false;
+        }
+
+        private void PrepareTempPath()
+        {
+            if (String.IsNullOrEmpty(TemporaryPath) || !Directory.Exists(TemporaryPath))
+                TemporaryPath = Path.Combine(
+                    Path.GetTempPath(),
+                    "cpmm\\mods"
+                );
         }
     }
 }

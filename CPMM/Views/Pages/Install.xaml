@@ -25,7 +25,8 @@
             <wpfui:Button
                 Appearance="Secondary"
                 Click="ButtonSelect_OnClick"
-                Content="{i18n:Translate String='install.select'}" />
+                Content="{i18n:Translate String='install.select'}"
+                IsEnabled="{Binding EnableInstallButton, Mode=OneWay}" />
         </wpfui:CardControl>
     </Grid>
 </Page>
