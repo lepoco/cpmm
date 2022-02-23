@@ -5,6 +5,8 @@ global.dialog.allFiles: All files
 global.dialog.selectMod: Select Cyberpunk 2077 modification
 global.dialog.selectMod.plural: Select Cyberpunk 2077 modifications
 global.dialog.cyberMods: Cyberpunk 2077 Mods
+global.selectedFiles.single: '%s file selected.'
+global.selectedFiles.plural: '%s files selected.'
 
 # Container / Tray menu
 container.nav.dashboard: Home

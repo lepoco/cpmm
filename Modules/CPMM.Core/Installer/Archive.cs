@@ -4,51 +4,43 @@
 // All Rights Reserved.
 
 using SevenZip;
+using System.IO;
 
 namespace CPMM.Core.Installer
 {
-    /// <summary>
-    /// Represents the result of the unpacking operation.
-    /// </summary>
-    internal struct ExtractingResult
-    {
-        /// <summary>
-        /// Represents the status of the unpacking operation.
-        /// </summary>
-        public enum ExtractingStatus
-        {
-            Unknown,
-            Success,
-            Failure,
-            Unsupported,
-            PasswordProtected
-        }
-
-        public ExtractingStatus Status = ExtractingStatus.Unknown;
-
-        public string InPath = String.Empty;
-
-        public string OutPath = String.Empty;
-    }
-
     /// <summary>
     /// Provides functions for unpacking the archives with the help of LZMA and 7Z.
     /// </summary>
     internal static class Archive
     {
-        public static async Task<ExtractingResult> ExtractAsync(string input, string output)
+        public static async Task<ExtractingResult> ExtractAsync(string input, string output, string sourceHash = "")
         {
+            if (!File.Exists(input))
+                return new ExtractingResult
+                {
+                    InPath = input,
+                    OutPath = output,
+                    SourceHash = sourceHash,
+                    Status = ExtractingResult.ExtractingStatus.FileNotExist
+                };
+
+            if (String.IsNullOrEmpty(sourceHash))
+                sourceHash = await IOExtension.ComputeHashAsync(input);
+
             using var extractor = new SevenZipExtractor(input);
 
             if (!extractor.Check())
             {
 #if DEBUG
-                System.Diagnostics.Debug.WriteLine($"WARNING | {input} is password protected (or another error has occurred)., Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}", "CPMM.Core");
+                System.Diagnostics.Debug.WriteLine(
+                    $"WARNING | {input} is password protected (or another error has occurred)., Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}",
+                    "CPMM.Core");
 #endif
                 return new ExtractingResult
                 {
                     InPath = input,
                     OutPath = output,
+                    SourceHash = sourceHash,
                     Status = ExtractingResult.ExtractingStatus.PasswordProtected
                 };
             }
@@ -61,12 +53,15 @@ namespace CPMM.Core.Installer
             )
             {
 #if DEBUG
-                System.Diagnostics.Debug.WriteLine($"WARNING | {input} archive is unsupported., Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}", "CPMM.Core");
+                System.Diagnostics.Debug.WriteLine(
+                    $"WARNING | {input} archive is unsupported., Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}",
+                    "CPMM.Core");
 #endif
                 return new ExtractingResult
                 {
                     InPath = input,
                     OutPath = output,
+                    SourceHash = sourceHash,
                     Status = ExtractingResult.ExtractingStatus.Unsupported
                 };
             }
@@ -77,6 +72,7 @@ namespace CPMM.Core.Installer
             {
                 InPath = input,
                 OutPath = output,
+                SourceHash = sourceHash,
                 Status = ExtractingResult.ExtractingStatus.Success
             };
         }

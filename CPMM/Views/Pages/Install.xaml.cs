@@ -4,8 +4,11 @@
 // All Rights Reserved.
 
 using CPMM.Code;
+using CPMM.Core.Installer;
 using Lepo.i18n;
 using Microsoft.Win32;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using WPFUI.Controls.Interfaces;
 
@@ -39,6 +42,10 @@ namespace CPMM.Views.Pages
 
         internal OpenFileDialog DialogSelector;
 
+        internal readonly ModInstaller Installer = new();
+
+        internal readonly List<ExtractingResult> UnpackedFiles = new List<ExtractingResult>();
+
         public Install()
         {
             InitializeComponent();
@@ -67,7 +74,7 @@ namespace CPMM.Views.Pages
             };
         }
 
-        private void ButtonSelect_OnClick(object sender, RoutedEventArgs e)
+        private async void ButtonSelect_OnClick(object sender, RoutedEventArgs e)
         {
             if (!DialogSelector.ShowDialog() ?? false)
                 return;
@@ -75,10 +82,42 @@ namespace CPMM.Views.Pages
 #if DEBUG
             System.Diagnostics.Debug.WriteLine($"INFO | {DialogSelector.FileName} selected, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}", "CPMM");
 #endif
+            if (InstallDataStack.DialogMultiSelect)
+                await TryPrepareMultiple(DialogSelector.FileNames);
+            else
+                await TryPrepareSingle(DialogSelector.FileName);
 
-            InstallDataStack.ModificationPath = DialogSelector.FileName;
 
-            // File_modSelector.FileNames
+            if (InstallDataStack.DialogMultiSelect)
+                if (DialogSelector.FileNames.Length > 1)
+                    InstallDataStack.ModificationPath = Translator.Plural("global.selectedFiles.single", "global.selectedFiles.plural", DialogSelector.FileNames.Length);
+                else
+                    InstallDataStack.ModificationPath = DialogSelector.FileNames[0] ?? Translator.String("global.fileNotSelected");
+            else
+                InstallDataStack.ModificationPath = DialogSelector.FileName;
+        }
+
+        private async Task TryPrepareSingle(string filePath)
+        {
+            UnpackedFiles.Clear();
+
+            var unpackingResult = await Installer.TryUnpackAsync(filePath);
+
+            if (unpackingResult.Status == ExtractingResult.ExtractingStatus.Success)
+                UnpackedFiles.Add(unpackingResult);
+        }
+
+        private async Task TryPrepareMultiple(string[] filePaths)
+        {
+            UnpackedFiles.Clear();
+
+            foreach (var singleFile in filePaths)
+            {
+                var unpackingResult = await Installer.TryUnpackAsync(singleFile);
+
+                if (unpackingResult.Status == ExtractingResult.ExtractingStatus.Success)
+                    UnpackedFiles.Add(unpackingResult);
+            }
         }
     }
 }
