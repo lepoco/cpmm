@@ -94,6 +94,8 @@ namespace CPMM.Views.Pages
             if (Directory.Exists(userDownloads))
                 DialogSelector.InitialDirectory = userDownloads;
 
+            Installer.GameRootDirectory = GH.Settings.Options.GameRootDirectory;
+
             DataContext = InstallDataStack;
         }
 

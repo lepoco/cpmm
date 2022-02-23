@@ -3,6 +3,7 @@
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
+using CPMM.Core.Common;
 using SevenZip;
 using System.IO;
 
@@ -33,7 +34,7 @@ namespace CPMM.Core.Installer
 
 
             if (String.IsNullOrEmpty(sourceHash))
-                sourceHash = await IOExtension.ComputeHashAsync(input);
+                sourceHash = await IOExtensions.ComputeHashAsync(input);
 
             using var extractor = new SevenZipExtractor(input);
 

@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:CPMM.Controls">
+    xmlns:controls="clr-namespace:CPMM.Controls"
+    xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI">
 
     <Style TargetType="{x:Type controls:ModCard}">
         <Setter Property="Background">
@@ -21,6 +22,32 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:ModCard}">
+                    <Expander>
+                        <Expander.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock
+                                        FontSize="14"
+                                        FontWeight="Bold"
+                                        Text="{TemplateBinding Title}" />
+                                    <TextBlock FontSize="10" Text="{TemplateBinding SubTitle}" />
+                                </StackPanel>
+                                <wpfui:Badge
+                                    Grid.Column="1"
+                                    Margin="0,0,12,0"
+                                    Padding="12,4"
+                                    VerticalAlignment="Center"
+                                    Appearance="Danger"
+                                    Content="ERROR" />
+                            </Grid>
+                        </Expander.Header>
+                        <TextBlock Text="123" />
+                    </Expander>
+                    <!--
                     <Border
                         x:Name="CardBorder"
                         Padding="{TemplateBinding Padding}"
@@ -32,6 +59,7 @@
                             <TextBlock Text="Modification" />
                         </Grid>
                     </Border>
+                    -->
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

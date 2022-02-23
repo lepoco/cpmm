@@ -3,7 +3,7 @@
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
-using CPMM.Core.Installer;
+using CPMM.Core.Common;
 using System.IO;
 
 namespace CPMM.Core.Settings
@@ -49,7 +49,7 @@ namespace CPMM.Core.Settings
         /// <returns></returns>
         private void Prepare()
         {
-            IOExtension.CreateOpenDirectory(_directory);
+            IOExtensions.CreateOpenDirectory(_directory);
 
             if (!File.Exists(Path) || new FileInfo(Path).Length == 0)
                 Save();

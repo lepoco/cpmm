@@ -3,6 +3,7 @@
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
+using CPMM.Core.Common;
 using CPMM.Core.Mods;
 using System.IO;
 
@@ -15,9 +16,13 @@ namespace CPMM.Core.Installer
     {
         public string TemporaryPath { get; set; } = String.Empty;
 
-        public ModInstaller()
-        {
-        }
+        public string GameRootDirectory { get; set; } = String.Empty;
+
+        public async Task<IEnumerable<IMod>> ParseModsAsync(IEnumerable<ExtractingResult> extractedMods) =>
+            await Parser.ParseModsAsync(extractedMods, GameRootDirectory);
+
+        public async Task<IMod> ParseModAsync(ExtractingResult extractedMod) =>
+            await Parser.ParseModAsync(extractedMod, GameRootDirectory);
 
         /// <summary>
         /// Clears temporary directory.
@@ -44,7 +49,7 @@ namespace CPMM.Core.Installer
         {
             PrepareTempPath();
 
-            var fileHash = await IOExtension.ComputeHashAsync(sourcePath);
+            var fileHash = await IOExtensions.ComputeHashAsync(sourcePath);
 
             return await Archive.ExtractAsync(
                 sourcePath,
@@ -54,27 +59,6 @@ namespace CPMM.Core.Installer
                 ),
                 fileHash
             );
-        }
-
-        public async Task<IEnumerable<IMod>> ParseModsAsync(IEnumerable<ExtractingResult> extractedMods)
-        {
-            var parsedMods = new List<IMod>();
-
-            foreach (var singleResult in extractedMods)
-                parsedMods.Add(await ParseModAsync(singleResult));
-
-            return parsedMods;
-        }
-
-        public async Task<IMod> ParseModAsync(ExtractingResult extractedMod)
-        {
-            var parsedMod = new Mod();
-            parsedMod.Name = Path.GetFileNameWithoutExtension(extractedMod.InPath);
-            parsedMod.ArchiveName = Path.GetFileName(extractedMod.InPath);
-            parsedMod.SourcePath = extractedMod.InPath;
-
-
-            return parsedMod;
         }
 
         public bool Install(IMod modification)

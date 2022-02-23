@@ -1,12 +1,17 @@
-﻿using System.IO;
+﻿// This Source Code Form is subject to the terms of the GNU GPL-3.0.
+// If a copy of the MIT was not distributed with this file, You can obtain one at https://www.gnu.org/licenses/gpl-3.0.en.html.
+// Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
+// All Rights Reserved.
+
+using System.IO;
 using System.Security.Cryptography;
 
-namespace CPMM.Core.Installer
+namespace CPMM.Core.Common
 {
     /// <summary>
     /// Facilitates directory and file management.
     /// </summary>
-    internal static class IOExtension
+    internal static class IOExtensions
     {
         public static bool CreateOpenDirectory(string path)
         {
@@ -29,6 +34,26 @@ namespace CPMM.Core.Installer
         public static async Task<bool> CreateOpenDirectoryAsync(string path)
         {
             return await Task.Run(() => CreateOpenDirectory(path));
+        }
+
+        public static IEnumerable<string> GetAllFiles(string path)
+        {
+            if (!Directory.Exists(path))
+                return new string[] { };
+
+            var files = Directory.GetFiles(path).ToList();
+
+            var directories = Directory.GetDirectories(path);
+
+            foreach (var singleDirectory in directories)
+                files.AddRange(GetAllFiles(singleDirectory));
+
+            return files.ToArray();
+        }
+
+        public static async ValueTask<IEnumerable<string>> GetAllFilesAsync(string path)
+        {
+            return await Task.Run(() => GetAllFiles(path));
         }
 
         public static string ComputeHash(string filePath)
