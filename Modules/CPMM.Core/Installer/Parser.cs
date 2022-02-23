@@ -104,7 +104,7 @@ namespace CPMM.Core.Installer
         private static Mods.Location GuessLocation(IEnumerable<string> modFiles)
         {
             // TODO: Mod location
-            return Mods.Location.Bin;
+            return Mods.Location.Root;
         }
 
         private static Mods.Category GuessCategory(string archiveName)

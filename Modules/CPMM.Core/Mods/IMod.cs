@@ -14,6 +14,8 @@ namespace CPMM.Core.Mods
 
         public int Priority { get; }
 
+        public bool IsValid { get; }
+
         public bool Enabled { get; }
 
         public bool Installed { get; }

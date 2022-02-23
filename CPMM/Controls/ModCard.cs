@@ -33,6 +33,18 @@ namespace CPMM.Controls
         public static readonly DependencyProperty SubTitleProperty = DependencyProperty.Register(nameof(SubTitle),
             typeof(string), typeof(ModCard), new PropertyMetadata(String.Empty));
 
+        /// <summary>
+        /// Property for <see cref="DirectoryIndex"/>.
+        /// </summary>
+        public static readonly DependencyProperty DirectoryIndexProperty = DependencyProperty.Register(nameof(DirectoryIndex),
+            typeof(int), typeof(ModCard), new PropertyMetadata(0));
+
+        /// <summary>
+        /// Property for <see cref="DirectoryEnabled"/>.
+        /// </summary>
+        public static readonly DependencyProperty DirectoryEnabledProperty = DependencyProperty.Register(nameof(DirectoryEnabled),
+            typeof(bool), typeof(ModCard), new PropertyMetadata(false));
+
         public IMod Mod
         {
             get => (IMod)GetValue(ModProperty);
@@ -51,6 +63,18 @@ namespace CPMM.Controls
             set => SetValue(SubTitleProperty, value);
         }
 
+        public int DirectoryIndex
+        {
+            get => (int)GetValue(DirectoryIndexProperty);
+            set => SetValue(DirectoryIndexProperty, value);
+        }
+
+        public bool DirectoryEnabled
+        {
+            get => (bool)GetValue(DirectoryEnabledProperty);
+            set => SetValue(DirectoryEnabledProperty, value);
+        }
+
         private static void ModPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is not ModCard control) return;
@@ -60,7 +84,10 @@ namespace CPMM.Controls
 
             control.Title = control.Mod.Name;
             control.SubTitle = control.Mod.Files.Count() + " files in archive '" + control.Mod.ArchiveName + "'";
+            control.DirectoryEnabled = control.Mod.IsValid;
 
+            if ((int)control.Mod.Location > 1)
+                control.DirectoryIndex = (int)control.Mod.Location - 1;
         }
     }
 }

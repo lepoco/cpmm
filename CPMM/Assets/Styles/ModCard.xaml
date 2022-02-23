@@ -41,7 +41,8 @@
                                     Grid.Column="1"
                                     MinWidth="120"
                                     Margin="0,0,12,0"
-                                    SelectedIndex="0">
+                                    IsEnabled="{TemplateBinding DirectoryEnabled}"
+                                    SelectedIndex="{TemplateBinding DirectoryIndex}">
                                     <ComboBoxItem Content="~\" />
                                     <ComboBoxItem Content="~\Bin\" />
                                     <ComboBoxItem Content="~\Bin\x64\" />

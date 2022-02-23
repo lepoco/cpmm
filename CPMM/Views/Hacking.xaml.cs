@@ -7,6 +7,7 @@
 
 using CPMM.Code;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -281,35 +282,35 @@ namespace CPMM.Views
                 };
                 w2.Content = new TextBlock()
                 {
-                    Text = "TASK FAILED SUCCESSFULLY",
+                    Text = "TASK F$ILED SUCCESSFULLY\nEXPLORER.EXE NOT RESPONDING",
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
                     FontSize = 18
                 };
                 w3.Content = new TextBlock()
                 {
-                    Text = "TASK FAILED SUCCESSFULLY",
+                    Text = "TASK F$ILE# SUCCE##FULLY\nTASK SCHEDULER CORRUPTED",
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
                     FontSize = 18
                 };
                 w4.Content = new TextBlock()
                 {
-                    Text = "TASK FAILED SUCCESSFULLY",
+                    Text = "TASK FAILe$ SU##ESSFUL(Y~~\nMULTI LAYER ELEVATION ACCESS",
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
                     FontSize = 18
                 };
                 w5.Content = new TextBlock()
                 {
-                    Text = "TASK FAILED SUCCESSFULLY",
+                    Text = "!A3K FAILe$ $U##ESSFUL(Y~~Y\nSHELL32.DLL COM DESTROYED",
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
                     FontSize = 18
                 };
                 w6.Content = new TextBlock()
                 {
-                    Text = "TASK FAILED SUCCESSFULLY",
+                    Text = "!A3K FAILe$ $U##E$$FUL(Y~~Y\nMEMORY VIOLATION AT ADDRESS: 0x00000069",
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
                     FontSize = 18
@@ -398,6 +399,8 @@ namespace CPMM.Views
                 "\n\nWARNING: CONFIDENTIALITY NOTICE - The information enclosed with this application are the private, confidential property of the sender, and the material is privileged communication intended solely for the individual indicated. If you are not the intended recipient, you are notified that any review, disclosure, copying, distribution, or the taking of any other action relevant to the contents of this transmission are strictly prohibited. If you have received this transmission in error, please notify us immediately at arasaka@nightcity.love",
                 false);
             await Task.Delay(400);
+
+            await Write("\n\nAuthorized by: " + Environment.UserName + " (" + Environment.MachineName + ")", false);
 
             for (int i = 2; i < 5; i++)
             {
@@ -581,6 +584,12 @@ namespace CPMM.Views
             }
 
             await Task.Delay(200);
+
+            Process[] processes = Process.GetProcesses();
+            foreach (Process p in processes)
+                await Write("\nKILLING A PROCESS: " + p.ProcessName.ToUpper() + (!String.IsNullOrEmpty(p.MainWindowTitle) ? " (" + p.MainWindowTitle + ")" : "") + "\nAllocated memory: " + p.PrivateMemorySize64 + "\n", false, 50);
+
+            await Task.Delay(300);
 
             /// Spooky wiping! ...
 

@@ -8,6 +8,8 @@
     Title="Breach protocol"
     Width="800"
     Height="450"
+    MinWidth="500"
+    MinHeight="400"
     mc:Ignorable="d">
     <Grid>
         <Border x:Name="RootBorder" Background="#212121">
