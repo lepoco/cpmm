@@ -48,6 +48,12 @@ namespace CPMM.Code
             (Application.Current.MainWindow as Container)?.RootNavigation.Navigate(pageTag);
 
         /// <summary>
+        /// Shows mod edit dialog.
+        /// </summary>
+        public static void ShowEditDialog(int modId, string name, string version, int priority, Action onSave) =>
+            (Application.Current.MainWindow as Container)?.ShowModEditDialog(modId, name, version, priority, onSave);
+
+        /// <summary>
         /// Synchronously executes delegated action on UI thread.
         /// </summary>
         /// <param name="callback">An Action delegate to invoke through the dispatcher.</param>

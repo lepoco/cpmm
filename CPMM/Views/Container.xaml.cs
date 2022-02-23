@@ -66,6 +66,16 @@ namespace CPMM.Views
                 RootNavigation.Navigate(page, true);
         }
 
+        public void ShowModEditDialog(int modId, string name, string version, int priority, Action onSave)
+        {
+
+            TextModEditName.Text = name;
+            TextModEditVersion.Text = version;
+            TextModEditPriority.Text = priority.ToString();
+
+            ModEditDialog.Show = true;
+        }
+
         private void InitializeData()
         {
             DataContext = ContainerDataStack;
@@ -79,6 +89,17 @@ namespace CPMM.Views
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             // TRAY
+        }
+
+        private void RootNavigation_OnNavigated(object sender, RoutedEventArgs e)
+        {
+            if (ModEditDialog.Show)
+                ModEditDialog.Show = false;
+        }
+
+        private void ModEditDialog_OnButtonLeftClick(object sender, RoutedEventArgs e)
+        {
+            // Callback
         }
     }
 }

@@ -58,7 +58,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="mods:IMod">
-                            <controls:ModCard Margin="0,0,0,12" Mod="{Binding Path=Instance, Mode=OneWay}" />
+                            <controls:ModCard Margin="0,0,0,12" Mod="{Binding Mode=OneWay}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -77,7 +77,7 @@
                 <wpfui:Button
                     Click="ButtonInstall_OnClick"
                     Content="Install"
-                    IsEnabled="{Binding EnableInstallButton, Mode=OneWay}" />
+                    IsEnabled="{Binding Mode=OneWay}" />
             </StackPanel>
         </Grid>
 

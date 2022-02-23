@@ -3,8 +3,6 @@
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
-using CPMM.Code;
-using System.Threading.Tasks;
 using WPFUI.Controls.Interfaces;
 
 namespace CPMM.Views.Pages
@@ -26,16 +24,6 @@ namespace CPMM.Views.Pages
                 $"INFO | {typeof(List)} navigated, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}",
                 "CPMM");
 #endif
-            // If list null
-            Task.Run(async () =>
-            {
-                await Task.Delay(50);
-
-                GH.Dispatch(() =>
-                {
-                    GH.Navigate("install");
-                });
-            });
         }
     }
 }

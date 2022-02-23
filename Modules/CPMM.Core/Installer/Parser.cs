@@ -39,6 +39,7 @@ namespace CPMM.Core.Installer
                 Location = GuessLocation(fileList),
                 Version = GuessVersion(fileName),
                 SourcePath = extractedMod.InPath,
+                TempPath = extractedMod.OutPath,
                 Files = fileList,
                 FilesOverridden = FindExistingFiles(extractedMod.OutPath, gamePath, fileList)
             };

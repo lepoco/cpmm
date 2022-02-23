@@ -5,6 +5,7 @@
 
 using CPMM.Core.Mods;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 
@@ -45,6 +46,12 @@ namespace CPMM.Controls
         public static readonly DependencyProperty DirectoryEnabledProperty = DependencyProperty.Register(nameof(DirectoryEnabled),
             typeof(bool), typeof(ModCard), new PropertyMetadata(false));
 
+        /// <summary>
+        /// Property for <see cref="FilesCollection"/>.
+        /// </summary>
+        public static readonly DependencyProperty FilesCollectionProperty = DependencyProperty.Register(nameof(FilesCollection),
+            typeof(IEnumerable<string>), typeof(ModCard), new PropertyMetadata(new string[] { }));
+
         public IMod Mod
         {
             get => (IMod)GetValue(ModProperty);
@@ -75,6 +82,12 @@ namespace CPMM.Controls
             set => SetValue(DirectoryEnabledProperty, value);
         }
 
+        public IEnumerable<string> FilesCollection
+        {
+            get => (IEnumerable<string>)GetValue(FilesCollectionProperty);
+            set => SetValue(FilesCollectionProperty, value);
+        }
+
         private static void ModPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is not ModCard control) return;
@@ -88,6 +101,16 @@ namespace CPMM.Controls
 
             if ((int)control.Mod.Location > 1)
                 control.DirectoryIndex = (int)control.Mod.Location - 1;
+
+            if (control.Mod.Files.Count() < 100)
+            {
+                var relativePaths = new List<string> { };
+                foreach (var singleFile in control.Mod.Files)
+                    relativePaths.Add(singleFile.Replace(control.Mod.TempPath + "\\", ""));
+
+                control.FilesCollection = relativePaths;
+            }
+
         }
     }
 }

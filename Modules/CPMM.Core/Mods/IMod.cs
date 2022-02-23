@@ -32,6 +32,8 @@ namespace CPMM.Core.Mods
 
         public string SourceBackupPath { get; }
 
+        public string TempPath { get; }
+
         public Version Version { get; }
 
         public Core.Mods.Location Location { get; }
@@ -45,10 +47,5 @@ namespace CPMM.Core.Mods
         public IEnumerable<string> Files { get; }
 
         public IEnumerable<string> FilesOverridden { get; }
-
-        /// <summary>
-        /// Just a copy for easier binding.
-        /// </summary>
-        public IMod Instance { get; }
     }
 }

@@ -37,7 +37,8 @@
                 Grid.Column="0"
                 Margin="6,0,6,0"
                 Frame="{Binding ElementName=RootFrame}"
-                Loaded="RootNavigation_OnLoaded">
+                Loaded="RootNavigation_OnLoaded"
+                Navigated="RootNavigation_OnNavigated">
                 <wpfui:NavigationStore.Items>
                     <wpfui:NavigationItem
                         Content="{i18n:Translate String='container.nav.dashboard'}"
@@ -86,6 +87,30 @@
                         FontSize="24"
                         Navigation="{Binding ElementName=RootNavigation}" />
                     <Frame x:Name="RootFrame" Grid.Row="1" />
+
+                    <wpfui:Dialog
+                        x:Name="ModEditDialog"
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        ButtonLeftClick="ModEditDialog_OnButtonLeftClick"
+                        ButtonLeftName="Update"
+                        ButtonRightAppearance="Secondary"
+                        ButtonRightName="Cancel"
+                        DialogHeight="250"
+                        Show="True">
+                        <StackPanel>
+                            <wpfui:TextBox x:Name="TextModEditName" Placeholder="Name" />
+                            <wpfui:TextBox
+                                x:Name="TextModEditVersion"
+                                Margin="0,8,0,0"
+                                Placeholder="Version" />
+                            <wpfui:NumberBox
+                                x:Name="TextModEditPriority"
+                                Margin="0,8,0,0"
+                                Min="0"
+                                Placeholder="Priority" />
+                        </StackPanel>
+                    </wpfui:Dialog>
                 </Grid>
             </Border>
         </Grid>

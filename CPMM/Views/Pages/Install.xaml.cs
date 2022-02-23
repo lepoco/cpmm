@@ -213,6 +213,8 @@ namespace CPMM.Views.Pages
                 InstallDataStack.LoadingVisibility = Visibility.Collapsed;
                 InstallDataStack.ListVisibility = Visibility.Visible;
             }
+
+            GH.ShowEditDialog(0, "My mod", "1.0.0", 14, () => { });
         }
 
         private async void ButtonCancel_OnClick(object sender, RoutedEventArgs e)

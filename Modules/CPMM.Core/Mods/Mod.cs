@@ -33,6 +33,8 @@ namespace CPMM.Core.Mods
 
         public string SourceBackupPath { get; internal set; } = String.Empty;
 
+        public string TempPath { get; internal set; } = String.Empty;
+
         public Version Version { get; internal set; } = new(1, 0, 0);
 
         public Core.Mods.Location Location { get; internal set; } = Core.Mods.Location.Unknown;
@@ -46,7 +48,5 @@ namespace CPMM.Core.Mods
         public IEnumerable<string> Files { get; internal set; } = new string[] { };
 
         public IEnumerable<string> FilesOverridden { get; internal set; } = new string[] { };
-
-        public IMod Instance => this;
     }
 }
