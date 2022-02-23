@@ -2,10 +2,12 @@
     x:Class="CPMM.Views.Pages.Install"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:CPMM.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i18n="clr-namespace:Lepo.i18n;assembly=Lepo.i18n"
     xmlns:local="clr-namespace:CPMM.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mods="clr-namespace:CPMM.Core.Mods;assembly=CPMM.Core"
     xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
     Title="Install"
     d:DesignHeight="450"
@@ -15,18 +17,61 @@
     <Grid Margin="24,0,24,24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <wpfui:CardControl
             Title="{i18n:Translate String='install.card.select.title'}"
-            Grid.Row="1"
+            Grid.Row="0"
             Icon="Archive24"
             Subtitle="{Binding ModificationPath, Mode=OneWay}">
             <wpfui:Button
                 Appearance="Secondary"
                 Click="ButtonSelect_OnClick"
                 Content="{i18n:Translate String='install.select'}"
-                IsEnabled="{Binding EnableInstallButton, Mode=OneWay}" />
+                IsEnabled="{Binding EnableSelectButton, Mode=OneWay}" />
         </wpfui:CardControl>
+
+        <Grid Grid.Row="1" Visibility="{Binding ListVisibility, Mode=OneWay}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Margin="0,12,0,12"
+                FontWeight="Medium"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                Text="Mods detected" />
+
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding ParsedMods, Mode=OneWay}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="mods:IMod">
+                        <controls:ModCard Mod="{Binding Path=Instance, Mode=OneWay}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <StackPanel
+                Grid.Row="2"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <wpfui:Button
+                    Margin="0,0,8,0"
+                    Appearance="Secondary"
+                    Click="ButtonCancel_OnClick"
+                    Content="Cancel" />
+                <wpfui:Button
+                    Click="ButtonInstall_OnClick"
+                    Content="Install"
+                    IsEnabled="{Binding EnableInstallButton, Mode=OneWay}" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

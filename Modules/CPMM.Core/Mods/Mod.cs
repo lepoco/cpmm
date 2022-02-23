@@ -44,5 +44,7 @@ namespace CPMM.Core.Mods
         public IEnumerable<string> Files { get; internal set; } = new string[] { };
 
         public IEnumerable<string> FilesOverridden { get; internal set; } = new string[] { };
+
+        public IMod Instance => this;
     }
 }

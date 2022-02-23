@@ -2,6 +2,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/CPMM;component/Assets/Styles/Accent.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/CPMM;component/Assets/Styles/ModCard.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

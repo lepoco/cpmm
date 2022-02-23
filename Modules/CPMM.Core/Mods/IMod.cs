@@ -43,5 +43,10 @@ namespace CPMM.Core.Mods
         public IEnumerable<string> Files { get; }
 
         public IEnumerable<string> FilesOverridden { get; }
+
+        /// <summary>
+        /// Just a copy for easier binding.
+        /// </summary>
+        public IMod Instance { get; }
     }
 }

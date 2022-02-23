@@ -53,6 +53,12 @@ namespace CPMM.Core.Installer
         {
             var parsedMods = new List<Mod>();
 
+            parsedMods.Add(new Mod
+            {
+                Priority = 0,
+                ArchiveName = ""
+            });
+
             return parsedMods;
         }
 

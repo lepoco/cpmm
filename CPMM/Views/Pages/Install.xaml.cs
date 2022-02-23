@@ -8,7 +8,10 @@ using CPMM.Core.Installer;
 using CPMM.Core.Mods;
 using Lepo.i18n;
 using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using WPFUI.Controls.Interfaces;
@@ -17,7 +20,15 @@ namespace CPMM.Views.Pages
 {
     internal class InstallData : ViewData
     {
-        private bool _enableInstallButton = true;
+        private bool _enableSelectButton = true;
+
+        public bool EnableSelectButton
+        {
+            get => _enableSelectButton;
+            set => UpdateProperty(ref _enableSelectButton, value, nameof(EnableSelectButton));
+        }
+
+        private bool _enableInstallButton = false;
 
         public bool EnableInstallButton
         {
@@ -48,6 +59,13 @@ namespace CPMM.Views.Pages
             get => _parsedMods;
             set => UpdateProperty(ref _parsedMods, value, nameof(ParsedMods));
         }
+
+        private Visibility _listVisibility = Visibility.Collapsed;
+        public Visibility ListVisibility
+        {
+            get => _listVisibility;
+            set => UpdateProperty(ref _listVisibility, value, nameof(ListVisibility));
+        }
     }
 
     /// <summary>
@@ -66,7 +84,15 @@ namespace CPMM.Views.Pages
         public Install()
         {
             InitializeComponent();
-            DialogSelector = InitializeDialog();
+            DialogSelector = CreateDialog();
+
+            var userDownloads = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                "Downloads"
+            );
+
+            if (Directory.Exists(userDownloads))
+                DialogSelector.InitialDirectory = userDownloads;
 
             DataContext = InstallDataStack;
         }
@@ -76,7 +102,7 @@ namespace CPMM.Views.Pages
             // Navigated
         }
 
-        private OpenFileDialog InitializeDialog()
+        private OpenFileDialog CreateDialog()
         {
             var dialogFilter = Translator.String("global.dialog.cyberMods") + " (*.7z;*.zip;*.rar)|*.7z;*.zip;*.rar";
             dialogFilter += "|All we had to do, was follow the damn train, CJ!(*.hotcoffee)|*.exe";
@@ -96,7 +122,9 @@ namespace CPMM.Views.Pages
             if (!DialogSelector.ShowDialog() ?? false)
                 return;
 
+            InstallDataStack.EnableSelectButton = false;
             InstallDataStack.EnableInstallButton = false;
+            InstallDataStack.ListVisibility = Visibility.Collapsed;
 
 #if DEBUG
             System.Diagnostics.Debug.WriteLine($"INFO | {DialogSelector.FileName} selected, Thread: {System.Threading.Thread.CurrentThread.ManagedThreadId}", "CPMM");
@@ -110,6 +138,12 @@ namespace CPMM.Views.Pages
 
             InstallDataStack.ParsedMods = await Installer.ParseModsAsync(UnpackedMods);
 
+            if (InstallDataStack.ParsedMods.Any())
+            {
+                InstallDataStack.EnableInstallButton = true;
+                InstallDataStack.ListVisibility = Visibility.Visible;
+            }
+
             if (InstallDataStack.DialogMultiSelect)
                 if (DialogSelector.FileNames.Length > 1)
                     InstallDataStack.ModificationPath = Translator.Plural("global.selectedFiles.single", "global.selectedFiles.plural", DialogSelector.FileNames.Length);
@@ -118,7 +152,7 @@ namespace CPMM.Views.Pages
             else
                 InstallDataStack.ModificationPath = DialogSelector.FileName;
 
-            InstallDataStack.EnableInstallButton = true;
+            InstallDataStack.EnableSelectButton = true;
         }
 
         private async Task TryPrepareSingle(string filePath)
@@ -142,6 +176,16 @@ namespace CPMM.Views.Pages
                 if (unpackingResult.Status == ExtractingResult.ExtractingStatus.Success)
                     UnpackedMods.Add(unpackingResult);
             }
+        }
+
+        private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        private void ButtonInstall_OnClick(object sender, RoutedEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
     }
 }
