@@ -19,6 +19,9 @@ namespace CPMM.Core.Installer
         {
         }
 
+        /// <summary>
+        /// Clears temporary directory.
+        /// </summary>
         public async Task<bool> ClearTemps()
         {
             PrepareTempPath();
@@ -33,6 +36,10 @@ namespace CPMM.Core.Installer
             });
         }
 
+        /// <summary>
+        /// Tries to unpack provided archive.
+        /// </summary>
+        /// <param name="sourcePath"></param>
         public async Task<ExtractingResult> TryUnpackAsync(string sourcePath)
         {
             PrepareTempPath();
@@ -51,15 +58,23 @@ namespace CPMM.Core.Installer
 
         public async Task<IEnumerable<IMod>> ParseModsAsync(IEnumerable<ExtractingResult> extractedMods)
         {
-            var parsedMods = new List<Mod>();
+            var parsedMods = new List<IMod>();
 
-            parsedMods.Add(new Mod
-            {
-                Priority = 0,
-                ArchiveName = ""
-            });
+            foreach (var singleResult in extractedMods)
+                parsedMods.Add(await ParseModAsync(singleResult));
 
             return parsedMods;
+        }
+
+        public async Task<IMod> ParseModAsync(ExtractingResult extractedMod)
+        {
+            var parsedMod = new Mod();
+            parsedMod.Name = Path.GetFileNameWithoutExtension(extractedMod.InPath);
+            parsedMod.ArchiveName = Path.GetFileName(extractedMod.InPath);
+            parsedMod.SourcePath = extractedMod.InPath;
+
+
+            return parsedMod;
         }
 
         public bool Install(IMod modification)
