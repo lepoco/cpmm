@@ -101,5 +101,10 @@ namespace CPMM.Views
         {
             // Callback
         }
+
+        private void ModEditDialog_OnButtonRightClick(object sender, RoutedEventArgs e)
+        {
+            ModEditDialog.Show = false;
+        }
     }
 }

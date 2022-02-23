@@ -58,7 +58,10 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="mods:IMod">
-                            <wpfui:CardExpander Header="{Binding Path=Name, Mode=OneTime}" Subtitle="{Binding Path=ArchiveName, Mode=OneTime}">
+                            <wpfui:CardExpander
+                                Margin="0,0,0,12"
+                                Header="{Binding Path=Name, Mode=OneTime}"
+                                Subtitle="{Binding Path=ArchiveName, Mode=OneTime}">
                                 <wpfui:CardExpander.HeaderContent>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
