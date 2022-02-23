@@ -58,7 +58,63 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="mods:IMod">
-                            <controls:ModCard Margin="0,0,0,12" Mod="{Binding Mode=OneWay}" />
+                            <wpfui:CardExpander Header="{Binding Path=Name, Mode=OneTime}" Subtitle="{Binding Path=ArchiveName, Mode=OneTime}">
+                                <wpfui:CardExpander.HeaderContent>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <wpfui:Badge
+                                            Grid.Column="0"
+                                            Padding="12,4"
+                                            VerticalAlignment="Center"
+                                            Appearance="Danger"
+                                            Content="ERROR" />
+
+                                        <Separator Grid.Column="1" Margin="12,0" />
+
+                                        <wpfui:Button
+                                            Grid.Column="2"
+                                            Margin="0,0,12,0"
+                                            Appearance="Secondary"
+                                            Click="ButtonEdit_OnClick"
+                                            Content="Edit"
+                                            IsEnabled="True"
+                                            Tag="{Binding Path=Id, Mode=OneTime}" />
+                                        <ComboBox
+                                            Grid.Column="3"
+                                            MinWidth="120"
+                                            Margin="0,0,12,0"
+                                            IsEnabled="True"
+                                            SelectedIndex="0">
+                                            <ComboBoxItem Content="~\" />
+                                            <ComboBoxItem Content="~\Bin\" />
+                                            <ComboBoxItem Content="~\Bin\x64\" />
+                                            <ComboBoxItem Content="~\Engine\" />
+                                            <ComboBoxItem Content="~\R6\" />
+                                            <ComboBoxItem Content="~\Archive\" />
+                                            <ComboBoxItem Content="~\Plugin\" />
+                                            <ComboBoxItem Content="~\Mod\" />
+                                            <ComboBoxItem Content="~\Dlc\" />
+                                        </ComboBox>
+                                    </Grid>
+                                </wpfui:CardExpander.HeaderContent>
+                                <ItemsControl ItemsSource="{Binding Path=Files, Mode=OneTime}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <VirtualizingStackPanel />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Mode=OneTime}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </wpfui:CardExpander>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

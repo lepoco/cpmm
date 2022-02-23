@@ -5,6 +5,8 @@
     xmlns:i18n="clr-namespace:Lepo.i18n;assembly=Lepo.i18n"
     xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI">
 
+    <!--  Rewrite for list page or not  -->
+
     <Style TargetType="{x:Type controls:ModCard}">
         <Setter Property="Background">
             <Setter.Value>
@@ -23,61 +25,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:ModCard}">
-                    <wpfui:CardExpander Header="{TemplateBinding Title}" Subtitle="{TemplateBinding SubTitle}">
-                        <wpfui:CardExpander.HeaderContent>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <wpfui:Badge
-                                    Grid.Column="0"
-                                    Padding="12,4"
-                                    VerticalAlignment="Center"
-                                    Appearance="Danger"
-                                    Content="ERROR" />
 
-                                <Separator Grid.Column="1" Margin="12,0" />
-
-                                <wpfui:Button
-                                    Grid.Column="2"
-                                    Margin="0,0,12,0"
-                                    Appearance="Secondary"
-                                    Content="Edit"
-                                    IsEnabled="{TemplateBinding DirectoryEnabled}" />
-                                <ComboBox
-                                    Grid.Column="3"
-                                    MinWidth="120"
-                                    Margin="0,0,12,0"
-                                    IsEnabled="{TemplateBinding DirectoryEnabled}"
-                                    SelectedIndex="{TemplateBinding DirectoryIndex}">
-                                    <ComboBoxItem Content="~\" />
-                                    <ComboBoxItem Content="~\Bin\" />
-                                    <ComboBoxItem Content="~\Bin\x64\" />
-                                    <ComboBoxItem Content="~\Engine\" />
-                                    <ComboBoxItem Content="~\R6\" />
-                                    <ComboBoxItem Content="~\Archive\" />
-                                    <ComboBoxItem Content="~\Plugin\" />
-                                    <ComboBoxItem Content="~\Mod\" />
-                                    <ComboBoxItem Content="~\Dlc\" />
-                                </ComboBox>
-                            </Grid>
-                        </wpfui:CardExpander.HeaderContent>
-                        <ItemsControl ItemsSource="{TemplateBinding FilesCollection}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Mode=OneWay}" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </wpfui:CardExpander>
                     <!--
                     <Border
                         x:Name="CardBorder"
