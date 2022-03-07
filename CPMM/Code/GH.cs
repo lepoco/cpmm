@@ -27,6 +27,11 @@ namespace CPMM.Code
         public static Core.Settings.Manager Settings => (Application.Current as App)!.Middleware.Settings;
 
         /// <summary>
+        /// Application settings.
+        /// </summary>
+        public static Core.Game.IGame Game => (Application.Current as App)!.Middleware.GameInstance;
+
+        /// <summary>
         /// Returns the instance of the current <see cref="System.Windows.Application"/>.
         /// </summary>
         public static App App => System.Windows.Application.Current as App ??

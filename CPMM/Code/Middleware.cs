@@ -26,6 +26,11 @@ namespace CPMM.Code
         /// </summary>
         public readonly Core.Input.Shortcuts Shortcuts = new();
 
+        /// <summary>
+        /// Game instance.
+        /// </summary>
+        public readonly Core.Game.GameInstance GameInstance = new();
+
         ~Middleware()
         {
             Dispose();
@@ -36,6 +41,9 @@ namespace CPMM.Code
             SetLanguage(Settings.Options.Language);
 
             Shortcuts.Initialize(Application.Current.MainWindow!);
+
+            if (!String.IsNullOrEmpty(Settings.Options.GameRootDirectory))
+                GameInstance.Fetch(Settings.Options.GameRootDirectory);
 
             return true;
         }

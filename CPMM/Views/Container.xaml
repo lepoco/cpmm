@@ -98,7 +98,7 @@
                         ButtonRightAppearance="Secondary"
                         ButtonRightName="Cancel"
                         DialogHeight="250"
-                        Show="True">
+                        Show="False">
                         <StackPanel>
                             <wpfui:TextBox x:Name="TextModEditName" Placeholder="Name" />
                             <wpfui:TextBox

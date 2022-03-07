@@ -3,6 +3,7 @@
 // Copyright (C) 2022 Leszek Pomianowski and CPMM Contributors.
 // All Rights Reserved.
 
+using System.Diagnostics;
 using System.IO;
 
 namespace CPMM.Core.Game
@@ -16,6 +17,12 @@ namespace CPMM.Core.Game
         public string Name { get; internal set; } = String.Empty;
 
         /// <inheritdoc />
+        public string Company { get; internal set; } = String.Empty;
+
+        /// <inheritdoc />
+        public string Copyright { get; internal set; } = String.Empty;
+
+        /// <inheritdoc />
         public string Version { get; internal set; } = String.Empty;
 
         /// <inheritdoc />
@@ -27,15 +34,29 @@ namespace CPMM.Core.Game
         /// <inheritdoc />
         public string BasePath { get; internal set; } = String.Empty;
 
-        /// <inheritdoc />
-        public string SettingsPath { get; internal set; } = String.Empty;
 
-        /// <inheritdoc />
-        public string SavesPath { get; internal set; } = String.Empty;
-
-        public static async Task<IGame> FetchAsync()
+        public void Fetch(string gameRootDir)
         {
-            throw new NotImplementedException();
+            if (!Directory.Exists(gameRootDir))
+                return;
+
+            var executablePath = Path.Combine(
+                gameRootDir,
+                "bin\\x64\\Cyberpunk2077.exe"
+            );
+
+            if (!File.Exists(executablePath))
+                return;
+
+            var executableInfo = FileVersionInfo.GetVersionInfo(executablePath);
+
+            Name = executableInfo.ProductName ?? "Cyberpunk 2077";
+            Company = executableInfo.CompanyName ?? "CD PROJEKT S.A.";
+            Copyright = executableInfo.LegalCopyright ?? "© 2020 CD PROJEKT S.A.";
+            Version = executableInfo.FileVersion ?? "0.0.0";
+            ProductVersion = executableInfo.ProductVersion ?? "0.0.0";
+            BasePath = gameRootDir;
+            ExecutablePath = executableInfo.FileName;
         }
 
         public static string TryToLocate()

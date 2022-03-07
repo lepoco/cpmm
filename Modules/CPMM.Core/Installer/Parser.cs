@@ -29,33 +29,28 @@ namespace CPMM.Core.Installer
         public static async Task<IMod> ParseModAsync(ExtractingResult extractedMod, string gamePath)
         {
             var fileName = Path.GetFileName(extractedMod.InPath);
-            var fileList = await IOExtensions.GetAllFilesAsync(extractedMod.OutPath) as string[] ?? new string[] { };
+            var fileList = await GetRelativeFilesList(extractedMod.OutPath);
 
             return new Mod
             {
                 Name = GuessName(Path.GetFileNameWithoutExtension(extractedMod.InPath)),
                 ArchiveName = fileName,
                 Category = GuessCategory(Path.GetFileNameWithoutExtension(extractedMod.InPath)),
-                Location = GuessLocation(fileList),
+                Location = Location.Root, //GuessLocation(fileList),
                 Version = GuessVersion(fileName),
                 SourcePath = extractedMod.InPath,
                 TempPath = extractedMod.OutPath,
                 Files = fileList,
-                FilesOverridden = FindExistingFiles(extractedMod.OutPath, gamePath, fileList)
+                FilesOverridden = FindExistingFiles(gamePath, fileList)
             };
         }
 
-        private static IEnumerable<string> FindExistingFiles(string tempPath, string gamePath,
-            IEnumerable<string> modFiles)
+        private static IEnumerable<string> FindExistingFiles(string gamePath, IEnumerable<string> relativePaths)
         {
             var existingFiles = new List<string> { };
-            var relativePaths = new List<string> { };
 
             if (String.IsNullOrEmpty(gamePath) || !Directory.Exists(gamePath))
                 return existingFiles.ToArray();
-
-            foreach (var singleFile in modFiles)
-                relativePaths.Add(singleFile.Replace(tempPath + "\\", ""));
 
             foreach (var singleFile in relativePaths)
             {
@@ -69,6 +64,17 @@ namespace CPMM.Core.Installer
             }
 
             return existingFiles.ToArray();
+        }
+
+        private static async Task<IEnumerable<string>> GetRelativeFilesList(string tempPath)
+        {
+            var fileList = await IOExtensions.GetAllFilesAsync(tempPath) as string[] ?? new string[] { };
+            var relativePaths = new List<string> { };
+
+            foreach (var singleFile in fileList)
+                relativePaths.Add(singleFile.Replace(tempPath + "\\", ""));
+
+            return relativePaths.ToArray();
         }
 
         private static string GuessName(string archiveName)
@@ -115,7 +121,7 @@ namespace CPMM.Core.Installer
             {
                 "fix", "patch", "improved", "tweak", "skip", "rework", "quest", "transla", " no ", "level", "swap",
                 "zoom", "lore", "realist", "immersi", "balanc", "disable", "vehicle", "handling", "preset", "engine",
-                "r6", "settings"
+                "r6", "settings", "vehicle", "car", "weapon"
             };
             string[] graphicsKeywords =
             {

@@ -16,6 +16,16 @@ namespace CPMM.Core.Game
         public string Name { get; }
 
         /// <summary>
+        /// Developer name.
+        /// </summary>
+        public string Company { get; }
+
+        /// <summary>
+        /// Game copyright..
+        /// </summary>
+        public string Copyright { get; }
+
+        /// <summary>
         /// Current version.
         /// </summary>
         public string Version { get; }
@@ -34,15 +44,5 @@ namespace CPMM.Core.Game
         /// Base archive location.
         /// </summary>
         public string BasePath { get; }
-
-        /// <summary>
-        /// Base settings path.
-        /// </summary>
-        public string SettingsPath { get; }
-
-        /// <summary>
-        /// Base saves path.
-        /// </summary>
-        public string SavesPath { get; }
     }
 }

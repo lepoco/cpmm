@@ -48,6 +48,13 @@ namespace CPMM.Views.Pages
             set => UpdateProperty(ref _gameSavesDirectory, value, nameof(GameSavesDirectory));
         }
 
+        private string _backupsDirectory = Translator.String("global.directoryNotSelected");
+        public string BackupsDirectory
+        {
+            get => _backupsDirectory;
+            set => UpdateProperty(ref _backupsDirectory, value, nameof(BackupsDirectory));
+        }
+
         private int _languageIndex = 0;
         public int LanguageIndex
         {

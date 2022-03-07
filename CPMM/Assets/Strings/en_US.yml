@@ -38,6 +38,10 @@ settings.selectDir: Select
 settings.card.rootGameDir.title: Main game directory
 settings.card.settingsGameDir.title: Game settings directory
 settings.card.savesGameDir.title: Game saves directory
+settings.modifications: Mods
+settings.card.backupMods.title: Store backups
+settings.card.backupMods.description: Keep backup copies of modifications and overwritten game files.
+settings.card.backupsLocation.title: Backups location
 settings.app: App
 settings.card.home.title: Home page
 settings.card.home.description: Which page of the application should be displayed at startup.

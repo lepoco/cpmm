@@ -5,6 +5,7 @@
 
 using CPMM.Code;
 using Lepo.i18n;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -45,8 +46,18 @@ namespace CPMM.Views.Pages
         public Dashboard()
         {
             InitializeComponent();
+            InitializeData();
+        }
 
+        private void InitializeData()
+        {
             DataContext = DashboardDataStack;
+
+            DashboardDataStack.InstalledMods = 0;
+            DashboardDataStack.ManagerVersion = GH.Version;
+
+            if (!String.IsNullOrEmpty(GH.Game.ProductVersion))
+                DashboardDataStack.GameVersion = GH.Game.ProductVersion;
         }
 
         private void ButtonAction_OnClick(object sender, RoutedEventArgs e)
