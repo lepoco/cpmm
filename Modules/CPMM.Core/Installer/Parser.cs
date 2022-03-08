@@ -116,12 +116,14 @@ namespace CPMM.Core.Installer
 
         private static Mods.Category GuessCategory(string archiveName)
         {
+            archiveName = archiveName.Trim().ToLower();
+
             //It more or less suggests a good category
             string[] tweaksKeywords =
             {
                 "fix", "patch", "improved", "tweak", "skip", "rework", "quest", "transla", " no ", "level", "swap",
                 "zoom", "lore", "realist", "immersi", "balanc", "disable", "vehicle", "handling", "preset", "engine",
-                "r6", "settings", "vehicle", "car", "weapon"
+                "r6", "settings", "car", "weapon"
             };
             string[] graphicsKeywords =
             {
@@ -132,7 +134,7 @@ namespace CPMM.Core.Installer
             {
                 "utils", "utili", "imports", "manager", "registry", "strings", "utilit", "menu", "npc", "music",
                 "camera", "rand", "boot", "toggle", "dynamic", "slot", "auto", "debug", "sort", "confi", "tool", "dlc",
-                "releas"
+                "releas", "cet", "cyber engine"
             };
             string[] cheatsKeywords =
             {

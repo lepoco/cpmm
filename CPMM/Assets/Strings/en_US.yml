@@ -8,6 +8,7 @@ global.dialog.selectMod.plural: Select Cyberpunk 2077 modifications
 global.dialog.cyberMods: Cyberpunk 2077 Mods
 global.selectedFiles.single: '%s file selected.'
 global.selectedFiles.plural: '%s files selected.'
+global.openLink: Open
 
 # Container / Tray menu
 container.nav.dashboard: Home
@@ -51,6 +52,14 @@ settings.card.mica.title: Use Fluent Mica background
 settings.card.mica.description: If available, the app will use the Mica background for Windows 11.
 settings.card.tray.title: Tray icon
 settings.card.tray.description: Show application icon and menu in system tray.
+
+# About
+about.externalSoftware: External software
+about.externalSoftware.description: External software used to create this application.
+about.card.nexus.title: Nexus Mods
+about.card.nexus.description: The official page of the manager app on Nexus Mods.
+about.card.github.title: GitHub
+about.card.github.description: Application source code.
 
 # Mod card
 # modCard.rootDirectory: Main dir

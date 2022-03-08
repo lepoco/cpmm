@@ -93,9 +93,9 @@
                         Grid.Row="0"
                         Grid.RowSpan="2"
                         ButtonLeftClick="ModEditDialog_OnButtonLeftClick"
-                        ButtonRightClick="ModEditDialog_OnButtonRightClick"
                         ButtonLeftName="Update"
                         ButtonRightAppearance="Secondary"
+                        ButtonRightClick="ModEditDialog_OnButtonRightClick"
                         ButtonRightName="Cancel"
                         DialogHeight="250"
                         Show="False">
@@ -163,10 +163,12 @@
         <wpfui:TitleBar
             Title="Arasaka μChip Manager"
             Grid.Row="0"
+            ApplicationNavigation="True"
             Icon="pack://application:,,,/CPMM;component/Assets/Images/arasaka-logo.png"
             NotifyIconImage="pack://application:,,,/CPMM;component/cpmm.ico"
             NotifyIconTooltip="Arasaka μChips"
-            UseNotifyIcon="True">
+            UseNotifyIcon="True"
+            UseSnapLayout="True">
             <wpfui:TitleBar.NotifyIconMenu>
                 <ContextMenu>
                     <MenuItem
