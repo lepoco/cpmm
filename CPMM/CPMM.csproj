@@ -37,7 +37,7 @@
 
   <ItemGroup>
     <PackageReference Include="Lepo.i18n" Version="1.2.2" />
-    <PackageReference Include="WPF-UI" Version="1.2.2-prerelease154" />
+    <PackageReference Include="WPF-UI" Version="1.2.2-prerelease159" />
   </ItemGroup>
 
   <ItemGroup>
