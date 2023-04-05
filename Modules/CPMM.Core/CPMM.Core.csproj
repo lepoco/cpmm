@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Squid-Box.SevenZipSharp.Lite" Version="1.5.0.366" />
+    <PackageReference Include="Squid-Box.SevenZipSharp.Lite" Version="1.6.1.23" />
   </ItemGroup>
 
   <ItemGroup>
